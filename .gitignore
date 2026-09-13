@@ -1,0 +1,10 @@
+# Local/raw data downloads and generated outputs
+/data/raw/*
+!/data/raw/README.md
+/data/processed/*
+!/data/processed/.gitkeep
+
+# Local environment/secrets
+.env
+.env.*
+!.env.example
