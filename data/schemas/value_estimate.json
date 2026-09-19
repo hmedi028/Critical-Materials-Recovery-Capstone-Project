@@ -1,0 +1,175 @@
+{
+  "$defs": {
+    "EvidenceQuality": {
+      "enum": [
+        "confirmed",
+        "inferred",
+        "incomplete",
+        "conflicting"
+      ],
+      "title": "EvidenceQuality",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Illustrative recovery value calculation. Not a live price quote.",
+  "properties": {
+    "source_name": {
+      "minLength": 1,
+      "title": "Source Name",
+      "type": "string"
+    },
+    "source_url": {
+      "anyOf": [
+        {
+          "format": "uri",
+          "maxLength": 2083,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Source Url"
+    },
+    "source_record_id": {
+      "anyOf": [
+        {
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Source Record Id"
+    },
+    "retrieved_date": {
+      "anyOf": [
+        {
+          "format": "date",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Retrieved Date"
+    },
+    "generated_date": {
+      "anyOf": [
+        {
+          "format": "date",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Generated Date"
+    },
+    "license_or_reuse_status": {
+      "minLength": 1,
+      "title": "License Or Reuse Status",
+      "type": "string"
+    },
+    "evidence_quality": {
+      "$ref": "#/$defs/EvidenceQuality"
+    },
+    "is_synthetic": {
+      "title": "Is Synthetic",
+      "type": "boolean"
+    },
+    "estimate_id": {
+      "minLength": 1,
+      "title": "Estimate Id",
+      "type": "string"
+    },
+    "material_id": {
+      "minLength": 1,
+      "title": "Material Id",
+      "type": "string"
+    },
+    "quantity": {
+      "anyOf": [
+        {
+          "exclusiveMinimum": 0.0,
+          "type": "number"
+        },
+        {
+          "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+          "type": "string"
+        }
+      ],
+      "title": "Quantity"
+    },
+    "quantity_unit": {
+      "minLength": 1,
+      "title": "Quantity Unit",
+      "type": "string"
+    },
+    "reference_value": {
+      "anyOf": [
+        {
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+          "type": "string"
+        }
+      ],
+      "title": "Reference Value"
+    },
+    "recovery_cost": {
+      "anyOf": [
+        {
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+          "type": "string"
+        }
+      ],
+      "title": "Recovery Cost"
+    },
+    "currency": {
+      "default": "USD",
+      "maxLength": 3,
+      "minLength": 3,
+      "title": "Currency",
+      "type": "string"
+    },
+    "calculation_date": {
+      "format": "date",
+      "title": "Calculation Date",
+      "type": "string"
+    },
+    "is_illustrative": {
+      "default": true,
+      "title": "Is Illustrative",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "source_name",
+    "license_or_reuse_status",
+    "evidence_quality",
+    "is_synthetic",
+    "estimate_id",
+    "material_id",
+    "quantity",
+    "quantity_unit",
+    "reference_value",
+    "recovery_cost",
+    "calculation_date"
+  ],
+  "title": "ValueEstimate",
+  "type": "object"
+}

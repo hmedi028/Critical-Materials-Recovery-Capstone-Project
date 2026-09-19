@@ -1,0 +1,62 @@
+{
+  "$defs": {
+    "ReviewOutcome": {
+      "enum": [
+        "accept",
+        "reject",
+        "revise"
+      ],
+      "title": "ReviewOutcome",
+      "type": "string"
+    },
+    "ReviewerRole": {
+      "enum": [
+        "analyst",
+        "supervisor",
+        "materials_specialist"
+      ],
+      "title": "ReviewerRole",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Human review action for a recommendation. Uses a generic role, not a person.",
+  "properties": {
+    "review_id": {
+      "minLength": 1,
+      "title": "Review Id",
+      "type": "string"
+    },
+    "recommendation_id": {
+      "minLength": 1,
+      "title": "Recommendation Id",
+      "type": "string"
+    },
+    "reviewer_role": {
+      "$ref": "#/$defs/ReviewerRole"
+    },
+    "decision": {
+      "$ref": "#/$defs/ReviewOutcome"
+    },
+    "reason": {
+      "minLength": 1,
+      "title": "Reason",
+      "type": "string"
+    },
+    "timestamp": {
+      "format": "date-time",
+      "title": "Timestamp",
+      "type": "string"
+    }
+  },
+  "required": [
+    "review_id",
+    "recommendation_id",
+    "reviewer_role",
+    "decision",
+    "reason",
+    "timestamp"
+  ],
+  "title": "ReviewDecision",
+  "type": "object"
+}

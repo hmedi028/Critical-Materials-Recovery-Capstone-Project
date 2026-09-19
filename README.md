@@ -22,7 +22,7 @@ Human review is required when composition is inferred, evidence is incomplete, s
 - `docs/data-sources.md` — source plan, handling notes, and provenance fields.
 - `data/static/usgs/critical_minerals_2025.csv` — committed USGS 2025 critical-minerals reference table.
 - `data/raw/` — local-only source downloads for ingestion development.
-- `data/synthetic/` — generated demo-safe records.
+- `data/synthetic/` — small CC0 demonstration seed (7 items). Not the evaluation corpus.
 - `data/schemas/` — JSON Schema contracts exported from the Pydantic models.
 
 ## First static reference

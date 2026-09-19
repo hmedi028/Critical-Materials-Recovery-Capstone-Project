@@ -6,12 +6,18 @@ import json
 from pathlib import Path
 
 from cmr.models import (
+    AuditEvent,
+    Component,
     CompositionEvidence,
     CriticalityReference,
     Item,
+    LifecycleEvent,
     Material,
     Provenance,
     Recommendation,
+    RecoveryMethod,
+    ReviewDecision,
+    ValueEstimate,
 )
 
 SCHEMA_DIR = Path(__file__).resolve().parents[2] / "data" / "schemas"
@@ -21,8 +27,14 @@ MODELS = {
     "material": Material,
     "criticality_reference": CriticalityReference,
     "item": Item,
+    "component": Component,
     "composition_evidence": CompositionEvidence,
+    "lifecycle_event": LifecycleEvent,
+    "recovery_method": RecoveryMethod,
+    "value_estimate": ValueEstimate,
     "recommendation": Recommendation,
+    "review_decision": ReviewDecision,
+    "audit_event": AuditEvent,
 }
 
 

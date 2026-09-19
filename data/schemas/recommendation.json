@@ -15,6 +15,11 @@
   "additionalProperties": false,
   "description": "Classification outcome for a single item.",
   "properties": {
+    "recommendation_id": {
+      "minLength": 1,
+      "title": "Recommendation Id",
+      "type": "string"
+    },
     "item_id": {
       "minLength": 1,
       "title": "Item Id",
@@ -40,6 +45,7 @@
     }
   },
   "required": [
+    "recommendation_id",
     "item_id",
     "category",
     "explanation",
