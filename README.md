@@ -23,7 +23,7 @@ Human review is required when composition is inferred, evidence is incomplete, s
 - `data/static/usgs/critical_minerals_2025.csv` — committed USGS 2025 critical-minerals reference table.
 - `data/raw/` — local-only source downloads for ingestion development.
 - `data/synthetic/` — generated demo-safe records.
-- `data/schemas/` — future validation contracts.
+- `data/schemas/` — JSON Schema contracts exported from the Pydantic models.
 
 ## First static reference
 
@@ -32,6 +32,25 @@ The initial committed static dataset is the USGS 2025 List of Critical Minerals,
 - 60 critical minerals
 - 15 marked as rare earth elements in the USGS graphic/page context
 - CSV and JSON versions are stored under `data/static/usgs/`
+
+## Python setup
+
+Python 3.12 or newer is required. Create a local virtualenv, then install the package and dev tools:
+
+```bash
+python3.12 -m venv .venv
+# If python3.12 is not installed, use: python3 -m venv .venv
+source .venv/bin/activate
+pip install -e ".[dev]"
+```
+
+`.venv/` is gitignored and must not be committed. Run tests with `pytest`.
+
+To regenerate the committed JSON Schema files after model changes:
+
+```bash
+python -m cmr.export_schemas
+```
 
 ## Environment variables
 
