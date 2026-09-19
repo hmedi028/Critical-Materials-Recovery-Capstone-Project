@@ -41,6 +41,12 @@ Copy `.env.example` to `.env` and add keys as integrations are added. `.env` is 
 cp .env.example .env
 ```
 
+## License
+
+This project uses the MIT License. See `LICENSE`.
+
+Data files may have separate source-specific reuse terms. Preserve `license_or_reuse_status` fields and source notes when importing or generating data.
+
 ## Development guardrails
 
 - Do not commit secrets, credentials, internal operational data, personal data, or restricted technical data.
