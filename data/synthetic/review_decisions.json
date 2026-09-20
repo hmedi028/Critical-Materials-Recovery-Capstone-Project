@@ -1,0 +1,18 @@
+[
+  {
+    "review_id": "REV-004",
+    "recommendation_id": "REC-004",
+    "reviewer_role": "materials_specialist",
+    "decision": "revise",
+    "reason": "Inferred tantalum is not confirmed. Keep the item in manual review until a source-backed composition is added.",
+    "timestamp": "2026-09-19T15:00:00+00:00"
+  },
+  {
+    "review_id": "REV-007",
+    "recommendation_id": "REC-007",
+    "reviewer_role": "analyst",
+    "decision": "accept",
+    "reason": "Conflicting nickel evidence is correctly sent for human review.",
+    "timestamp": "2026-09-19T15:05:00+00:00"
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "component_id": "SYN-CMP-002-CELL",
+    "name": "battery cell stack",
+    "parent_item_id": "SYN-ITEM-002",
+    "public_reference_number": "SYN-REF-CELL",
+    "source_name": "CMR synthetic demonstration data",
+    "source_record_id": "SYN-CMP-002-CELL",
+    "generated_date": "2026-09-19",
+    "license_or_reuse_status": "CC0 1.0 Universal",
+    "evidence_quality": "confirmed",
+    "is_synthetic": true
+  },
+  {
+    "component_id": "SYN-CMP-004-CAP",
+    "name": "surface-mount capacitor",
+    "parent_item_id": "SYN-ITEM-004",
+    "public_reference_number": "SYN-REF-CAP",
+    "source_name": "CMR synthetic demonstration data",
+    "source_record_id": "SYN-CMP-004-CAP",
+    "generated_date": "2026-09-19",
+    "license_or_reuse_status": "CC0 1.0 Universal",
+    "evidence_quality": "incomplete",
+    "is_synthetic": true
+  },
+  {
+    "component_id": "SYN-CMP-006-MAG",
+    "name": "permanent magnet assembly",
+    "parent_item_id": "SYN-ITEM-006",
+    "public_reference_number": "SYN-REF-MAG",
+    "source_name": "CMR synthetic demonstration data",
+    "source_record_id": "SYN-CMP-006-MAG",
+    "generated_date": "2026-09-19",
+    "license_or_reuse_status": "CC0 1.0 Universal",
+    "evidence_quality": "confirmed",
+    "is_synthetic": true
+  }
+]

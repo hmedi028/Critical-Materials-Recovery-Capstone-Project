@@ -1,0 +1,34 @@
+[
+  {
+    "event_id": "SYN-EVT-001-RCV",
+    "item_id": "SYN-ITEM-001",
+    "event_type": "receipt",
+    "condition": "serviceable",
+    "quantity": 1,
+    "quantity_unit": "each",
+    "timestamp": "2026-09-10T12:00:00+00:00",
+    "generic_location_code": "LOC-A",
+    "source_name": "CMR synthetic demonstration data",
+    "source_record_id": "SYN-EVT-001-RCV",
+    "generated_date": "2026-09-19",
+    "license_or_reuse_status": "CC0 1.0 Universal",
+    "evidence_quality": "confirmed",
+    "is_synthetic": true
+  },
+  {
+    "event_id": "SYN-EVT-002-INS",
+    "item_id": "SYN-ITEM-002",
+    "event_type": "inspection",
+    "condition": "unserviceable",
+    "quantity": 1,
+    "quantity_unit": "each",
+    "timestamp": "2026-09-12T09:30:00+00:00",
+    "generic_location_code": "LOC-B",
+    "source_name": "CMR synthetic demonstration data",
+    "source_record_id": "SYN-EVT-002-INS",
+    "generated_date": "2026-09-19",
+    "license_or_reuse_status": "CC0 1.0 Universal",
+    "evidence_quality": "confirmed",
+    "is_synthetic": true
+  }
+]
