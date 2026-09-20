@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+# Import all 12 entities
 from cmr.models import (
     AuditEvent,
     Component,
@@ -22,6 +23,7 @@ from cmr.models import (
 
 SCHEMA_DIR = Path(__file__).resolve().parents[2] / "data" / "schemas"
 
+# JSON Schema definitions for all 12 PDF entities
 MODELS = {
     "provenance": Provenance,
     "material": Material,
@@ -37,7 +39,7 @@ MODELS = {
     "audit_event": AuditEvent,
 }
 
-
+# Export all 12 JSON Schema definitions to data/schemas/
 def export_schemas(output_dir: Path | None = None) -> list[Path]:
     dest = output_dir or SCHEMA_DIR
     dest.mkdir(parents=True, exist_ok=True)
