@@ -21,9 +21,29 @@ Human review is required when composition is inferred, evidence is incomplete, s
 
 - `docs/data-sources.md` — source plan, handling notes, and provenance fields.
 - `data/static/usgs/critical_minerals_2025.csv` — committed USGS 2025 critical-minerals reference table.
-- `data/raw/` — local-only source downloads for ingestion development.
-- `data/synthetic/` — small CC0 demonstration seed (7 items). Not the evaluation corpus.
+- `data/raw/` — local-only source downloads (for example `P_FLIS_NSN.CSV`). Gitignored.
+- `data/processed/` — local ingest outputs such as `candidate_niins.csv`. Gitignored.
+- `data/synthetic/` — reserved for generated demo records. No corpus is committed yet.
 - `data/schemas/` — JSON Schema contracts exported from the Pydantic models.
+
+## Entity & Schema Architecture
+
+All 12 PDF entities have a matching Pydantic model with a deterministic 1:1 mapping to exported JSON Schema definitions:
+
+| PDF entity | Pydantic class | Source file | Exported JSON Schema |
+| :--- | :--- | :--- | :--- |
+| Item | `Item` | `src/cmr/models/item.py` | `data/schemas/item.json` |
+| Component | `Component` | `src/cmr/models/component.py` | `data/schemas/component.json` |
+| Material | `Material` | `src/cmr/models/material.py` | `data/schemas/material.json` |
+| Composition evidence | `CompositionEvidence` | `src/cmr/models/composition.py` | `data/schemas/composition_evidence.json` |
+| Criticality reference | `CriticalityReference` | `src/cmr/models/material.py` | `data/schemas/criticality_reference.json` |
+| Lifecycle event | `LifecycleEvent` | `src/cmr/models/lifecycle.py` | `data/schemas/lifecycle_event.json` |
+| Recovery method | `RecoveryMethod` | `src/cmr/models/recovery.py` | `data/schemas/recovery_method.json` |
+| Value estimate | `ValueEstimate` | `src/cmr/models/value_estimate.py` | `data/schemas/value_estimate.json` |
+| Recommendation | `Recommendation` | `src/cmr/models/recommendation.py` | `data/schemas/recommendation.json` |
+| Review decision | `ReviewDecision` | `src/cmr/models/review.py` | `data/schemas/review_decision.json` |
+| Provenance record | `Provenance` | `src/cmr/models/provenance.py` | `data/schemas/provenance.json` |
+| Audit event | `AuditEvent` | `src/cmr/models/audit.py` | `data/schemas/audit_event.json` |
 
 ## First static reference
 
@@ -41,10 +61,10 @@ Python 3.12 or newer is required. Create a local virtualenv, then install the pa
 python3.12 -m venv .venv
 # If python3.12 is not installed, use: python3 -m venv .venv
 source .venv/bin/activate
-pip install -e ".[dev]"
+pip install -e .
 ```
 
-`.venv/` is gitignored and must not be committed. Run tests with `pytest`.
+`.venv/` is gitignored and must not be committed.
 
 To regenerate the committed JSON Schema files after model changes:
 
@@ -52,9 +72,16 @@ To regenerate the committed JSON Schema files after model changes:
 python -m cmr.export_schemas
 ```
 
+To slice a local PUB LOG `P_FLIS_NSN.CSV` into a candidate NIIN list (does not commit the bulk file):
+
+```bash
+python -m cmr.ingest_publog
+# or: python -m cmr.ingest_publog --input /path/to/P_FLIS_NSN.CSV --limit 1000
+```
+
 ## Environment variables
 
-Copy `.env.example` to `.env` and add keys as integrations are added. `.env` is gitignored and must never be committed.
+Copy `.env.example` to `.env` and add keys as integrations are added. 
 
 ```bash
 cp .env.example .env
