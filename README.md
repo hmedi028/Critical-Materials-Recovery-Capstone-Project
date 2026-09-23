@@ -21,8 +21,9 @@ Human review is required when composition is inferred, evidence is incomplete, s
 
 - `docs/data-sources.md` — source plan, handling notes, and provenance fields.
 - `data/static/usgs/critical_minerals_2025.csv` — committed USGS 2025 critical-minerals reference table.
-- `data/raw/` — local-only source downloads for ingestion development.
-- `data/synthetic/` — CC0 synthetic evaluation corpus (100 labeled items). Regenerate with `python -m cmr.generate_synthetic`.
+- `data/raw/` — local-only source downloads (for example `P_FLIS_NSN.CSV`). Gitignored.
+- `data/processed/` — local ingest outputs such as `candidate_niins.csv`. Gitignored.
+- `data/synthetic/` — reserved for generated demo records. No corpus is committed yet.
 - `data/schemas/` — JSON Schema contracts exported from the Pydantic models.
 
 ## Entity & Schema Architecture
@@ -60,10 +61,10 @@ Python 3.12 or newer is required. Create a local virtualenv, then install the pa
 python3.12 -m venv .venv
 # If python3.12 is not installed, use: python3 -m venv .venv
 source .venv/bin/activate
-pip install -e ".[dev]"
+pip install -e .
 ```
 
-`.venv/` is gitignored and must not be committed. Run tests with `pytest`.
+`.venv/` is gitignored and must not be committed.
 
 To regenerate the committed JSON Schema files after model changes:
 
@@ -71,10 +72,11 @@ To regenerate the committed JSON Schema files after model changes:
 python -m cmr.export_schemas
 ```
 
-To regenerate the synthetic evaluation corpus (100 labeled items, including the original 7 templates):
+To slice a local PUB LOG `P_FLIS_NSN.CSV` into a candidate NIIN list (does not commit the bulk file):
 
 ```bash
-python -m cmr.generate_synthetic
+python -m cmr.ingest_publog
+# or: python -m cmr.ingest_publog --input /path/to/P_FLIS_NSN.CSV --limit 1000
 ```
 
 ## Environment variables
