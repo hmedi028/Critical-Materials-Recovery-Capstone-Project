@@ -2,7 +2,7 @@
 
 - `static/`: small, versioned reference datasets safe to commit.
 - `raw/`: local source downloads; do not commit bulk/raw files unless their redistribution terms are confirmed.
-- `processed/`: local normalized outputs created by scripts (gitignored), including `candidate_niins.csv` from `python -m cmr.ingest_publog`.
+- `processed/`: local normalized outputs created by scripts (gitignored), including `candidate_niins_nsn.csv` from Stage 1 and `selected_niins.csv` / `selected_material_evidence.csv` from Stage 2.
 - `synthetic/`: reserved for generated demo records. None are committed yet.
 - `schemas/`: JSON Schema contracts exported from `src/cmr` models.
 

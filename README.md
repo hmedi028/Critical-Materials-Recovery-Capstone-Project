@@ -79,6 +79,15 @@ python -m cmr.ingest_publog
 # or: python -m cmr.ingest_publog --input /path/to/P_FLIS_NSN.CSV --limit 1000
 ```
 
+To scan `V_CHARACTERISTICS.CSV` in chunks (Stage 2). The zip can stay in `~/Downloads`; do not commit the ~3 GB extract:
+
+```bash
+python -m cmr.ingest_characteristics
+# or: python -m cmr.ingest_characteristics --input ~/Downloads/CHARACTERISTICS.zip
+```
+
+Writes `data/processed/selected_material_evidence.csv` and `data/processed/selected_niins.csv`. Matches are candidate evidence, not a bill of materials.
+
 ## Environment variables
 
 Copy `.env.example` to `.env` and add keys as integrations are added. 
