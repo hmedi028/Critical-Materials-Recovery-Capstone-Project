@@ -79,6 +79,34 @@ python -m cmr.ingest_publog
 # or: python -m cmr.ingest_publog --input /path/to/P_FLIS_NSN.CSV --limit 1000
 ```
 
+To scan `V_CHARACTERISTICS.CSV` in chunks (Stage 2). The zip can stay in `~/Downloads`; do not commit the ~3 GB extract:
+
+```bash
+python -m cmr.ingest_characteristics
+# or: python -m cmr.ingest_characteristics --input ~/Downloads/CHARACTERISTICS.zip
+```
+
+Writes `data/processed/selected_material_evidence.csv` and `data/processed/selected_niins.csv`. Matches are candidate evidence, not a bill of materials.
+
+To reduce `P_FLIS_NSN.CSV` and `V_FLIS_IDENTIFICATION.CSV` to those selected NIINs (Stage 3). Leave `Identification.zip` in `~/Downloads`; do not commit the 16M-row extract:
+
+```bash
+python -m cmr.ingest_selected
+# or: python -m cmr.ingest_selected --items data/raw/P_FLIS_NSN.CSV --identification ~/Downloads/Identification.zip
+```
+
+Writes `data/processed/selected_items.csv` (includes 13-digit `NSN` = FSC + NIIN) and `data/processed/selected_identification.csv`. Identification codes are supporting clues, not material proof.
+
+Recorded local run counts (processed CSVs stay gitignored):
+
+| Stage | Input | Output |
+| :--- | :--- | :--- |
+| 1 | `P_FLIS_NSN.CSV` | 1,000 candidate NIINs (`candidate_niins_nsn.csv`) |
+| 2 | 38,936,531 characteristics rows | 40 evidence rows; 19 selected NIINs |
+| 3 | selected NIINs vs `P_FLIS_NSN.CSV` and `V_FLIS_IDENTIFICATION.CSV` | 19 `selected_items.csv` rows; 19 `selected_identification.csv` rows |
+
+Join key across extracts is `NIIN`. Sample review: NIIN `000030837` matched `lead` on “LG OF LEAD” (electrical lead length), not the metal.
+
 ## Environment variables
 
 Copy `.env.example` to `.env` and add keys as integrations are added. 

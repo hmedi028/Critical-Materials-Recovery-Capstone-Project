@@ -17,7 +17,7 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_INPUT = REPO_ROOT / "data" / "raw" / "P_FLIS_NSN.CSV"
-DEFAULT_OUTPUT = REPO_ROOT / "data" / "processed" / "candidate_niins.csv"
+DEFAULT_OUTPUT = REPO_ROOT / "data" / "processed" / "candidate_niins_nsn.csv"
 
 TARGET_FSCS = {"5960", "5998", "6140", "2840"}
 DEFAULT_LIMIT = 1000
