@@ -20,6 +20,7 @@ Human review is required when composition is inferred, evidence is incomplete, s
 ## Current data organization
 
 - `docs/data-sources.md` — source plan, handling notes, and provenance fields.
+- `docs/glossary.md` — PUB LOG / FLIS acronym legend (FSC, FSG, NIIN, NSN, INC).
 - `data/static/usgs/critical_minerals_2025.csv` — committed USGS 2025 critical-minerals reference table.
 - `data/raw/` — local-only source downloads (for example `P_FLIS_NSN.CSV`). Gitignored.
 - `data/processed/` — local ingest outputs such as `candidate_niins.csv`. Gitignored.
@@ -106,6 +107,16 @@ Recorded local run counts (processed CSVs stay gitignored):
 | 3 | selected NIINs vs `P_FLIS_NSN.CSV` and `V_FLIS_IDENTIFICATION.CSV` | 19 `selected_items.csv` rows; 19 `selected_identification.csv` rows |
 
 Join key across extracts is `NIIN`. Sample review: NIIN `000030837` matched `lead` on “LG OF LEAD” (electrical lead length), not the metal.
+
+To translate FSC, FSG, and INC on the selected items (Priority 4). Leave `V_H2_FSG.CSV`, `V_H2_FSC.CSV`, and `V_H6_NAME_INC.CSV` in `data/raw/`; do not commit them:
+
+```bash
+python -m cmr.ingest_classifications
+```
+
+Writes `data/processed/selected_items_classified.csv` (codes plus readable titles, joined on `NIIN`/`NSN`), `classification_groups.csv`, and `classification_unmatched.csv`. Lookups describe item type, not material composition.
+
+Priority 4 local run: 19 classified items; 8 groups. Thin-slice categories present: FSG 59 (FSC `5998` boards/cards, FSC `5960` electron tubes) and FSG 28 (FSC `2840` aircraft gas-turbine components). FSC `6140` is a Stage 1 candidate class and is not in this 19-item slice. Unmatched: INC `77777` on NIIN `000030837` is not in `V_H6_NAME_INC.CSV`; the item and FSC/FSG titles were kept.
 
 ## Environment variables
 

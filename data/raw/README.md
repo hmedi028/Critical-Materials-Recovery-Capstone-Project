@@ -25,3 +25,11 @@ python -m cmr.ingest_selected --items data/raw/P_FLIS_NSN.CSV --identification ~
 ```
 
 Stage 3 writes `data/processed/selected_items.csv` and `data/processed/selected_identification.csv`. Recorded local counts: 1,000 Stage 1 candidates; Stage 2 read 38,936,531 characteristics rows and kept 40 evidence rows / 19 NIINs; Stage 3 wrote 19 item rows and 19 identification rows. Sample review: NIIN `000030837` `lead` is electrical lead length, not the metal. Join key is `NIIN`.
+
+For Priority 4, place `V_H2_FSG.CSV`, `V_H2_FSC.CSV`, and `V_H6_NAME_INC.CSV` here. Do not commit them. Run:
+
+```bash
+python -m cmr.ingest_classifications
+```
+
+Writes `data/processed/selected_items_classified.csv`, `classification_groups.csv`, and `classification_unmatched.csv`. Thin-slice categories on the 19 items: FSG 59 / FSC `5998` and `5960`; FSG 28 / FSC `2840`. Unmatched INC `77777` on NIIN `000030837` is documented, not dropped.
