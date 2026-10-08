@@ -6,6 +6,20 @@ Manual research across public catalogs, technical descriptions, and commodity re
 
 The system will not treat an AI-generated inference as a confirmed material composition unless it is supported by a traceable source.
 
+[![Version](https://img.shields.io/badge/version-0.3.0-blue)](CHANGELOG.md)
+[![Python](https://img.shields.io/badge/Python-3.12+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Pydantic](https://img.shields.io/badge/Pydantic-2.6+-E92063?logo=pydantic&logoColor=white)](https://docs.pydantic.dev/)
+
+## Table of contents
+
+- [What it will do](#what-it-will-do)
+- [Setup](#setup)
+- [Usage](#usage)
+- [Data organization](#data-organization)
+- [USGS reference](#usgs-reference)
+- [Development guardrails](#development-guardrails)
+- [License](#license)
+
 ## What it will do
 
 1. Accept a public item identifier or item description.
@@ -17,46 +31,11 @@ The system will not treat an AI-generated inference as a confirmed material comp
 
 Human review is required when composition is inferred, evidence is incomplete, sources conflict, or a potentially hazardous material is identified.
 
-## Current data organization
+## Setup
 
-- `docs/data-sources.md` — source plan, handling notes, and provenance fields.
-- `docs/glossary.md` — PUB LOG / FLIS acronym legend (FSC, FSG, NIIN, NSN, INC).
-- `data/static/usgs/critical_minerals_2025.csv` — committed USGS 2025 critical-minerals reference table.
-- `data/raw/` — local-only source downloads (for example `P_FLIS_NSN.CSV`). Gitignored.
-- `data/processed/` — local ingest outputs such as `candidate_niins.csv`. Gitignored.
-- `data/synthetic/` — reserved for generated demo records. No corpus is committed yet.
-- `data/schemas/` — JSON Schema contracts exported from the Pydantic models.
+Python 3.12 or newer is required.
 
-## Entity & Schema Architecture
-
-All 12 PDF entities have a matching Pydantic model with a deterministic 1:1 mapping to exported JSON Schema definitions:
-
-| PDF entity | Pydantic class | Source file | Exported JSON Schema |
-| :--- | :--- | :--- | :--- |
-| Item | `Item` | `src/cmr/models/item.py` | `data/schemas/item.json` |
-| Component | `Component` | `src/cmr/models/component.py` | `data/schemas/component.json` |
-| Material | `Material` | `src/cmr/models/material.py` | `data/schemas/material.json` |
-| Composition evidence | `CompositionEvidence` | `src/cmr/models/composition.py` | `data/schemas/composition_evidence.json` |
-| Criticality reference | `CriticalityReference` | `src/cmr/models/material.py` | `data/schemas/criticality_reference.json` |
-| Lifecycle event | `LifecycleEvent` | `src/cmr/models/lifecycle.py` | `data/schemas/lifecycle_event.json` |
-| Recovery method | `RecoveryMethod` | `src/cmr/models/recovery.py` | `data/schemas/recovery_method.json` |
-| Value estimate | `ValueEstimate` | `src/cmr/models/value_estimate.py` | `data/schemas/value_estimate.json` |
-| Recommendation | `Recommendation` | `src/cmr/models/recommendation.py` | `data/schemas/recommendation.json` |
-| Review decision | `ReviewDecision` | `src/cmr/models/review.py` | `data/schemas/review_decision.json` |
-| Provenance record | `Provenance` | `src/cmr/models/provenance.py` | `data/schemas/provenance.json` |
-| Audit event | `AuditEvent` | `src/cmr/models/audit.py` | `data/schemas/audit_event.json` |
-
-## First static reference
-
-The initial committed static dataset is the USGS 2025 List of Critical Minerals, captured from the USGS reference page on 2026-09-13:
-
-- 60 critical minerals
-- 15 marked as rare earth elements in the USGS graphic/page context
-- CSV and JSON versions are stored under `data/static/usgs/`
-
-## Python setup
-
-Python 3.12 or newer is required. Create a local virtualenv, then install the package and dev tools:
+Create a local virtualenv, then install the package:
 
 ```bash
 python3.12 -m venv .venv
@@ -66,6 +45,14 @@ pip install -e .
 ```
 
 `.venv/` is gitignored and must not be committed.
+
+Copy `.env.example` to `.env` and add keys as integrations are added. Do not commit secrets.
+
+```bash
+cp .env.example .env
+```
+
+## Usage
 
 To regenerate the committed JSON Schema files after model changes:
 
@@ -118,19 +105,24 @@ Writes `data/processed/selected_items_classified.csv` (codes plus readable title
 
 Priority 4 local run: 19 classified items; 8 groups. Thin-slice categories present: FSG 59 (FSC `5998` boards/cards, FSC `5960` electron tubes) and FSG 28 (FSC `2840` aircraft gas-turbine components). FSC `6140` is a Stage 1 candidate class and is not in this 19-item slice. Unmatched: INC `77777` on NIIN `000030837` is not in `V_H6_NAME_INC.CSV`; the item and FSC/FSG titles were kept.
 
-## Environment variables
+## Data organization
 
-Copy `.env.example` to `.env` and add keys as integrations are added. 
+- `data/README.md` — data-directory layout and the 12-entity Pydantic / JSON Schema mapping.
+- `docs/data-sources.md` — source plan, handling notes, and provenance fields.
+- `docs/glossary.md` — PUB LOG / FLIS acronym legend (FSC, FSG, NIIN, NSN, INC).
+- `data/static/usgs/critical_minerals_2025.csv` — committed USGS 2025 critical-minerals reference table.
+- `data/raw/` — local-only source downloads (for example `P_FLIS_NSN.CSV`). Gitignored.
+- `data/processed/` — local ingest outputs such as `candidate_niins.csv`. Gitignored.
+- `data/synthetic/` — reserved for generated demo records. No corpus is committed yet.
+- `data/schemas/` — JSON Schema contracts exported from the Pydantic models.
 
-```bash
-cp .env.example .env
-```
+## USGS reference
 
-## License
+The initial committed static dataset is the USGS 2025 List of Critical Minerals, captured from the USGS reference page on 2026-09-13:
 
-This project uses the MIT License. See `LICENSE`.
-
-Data files may have separate source-specific reuse terms. Preserve `license_or_reuse_status` fields and source notes when importing or generating data.
+- 60 critical minerals
+- 15 marked as rare earth elements in the USGS graphic/page context
+- CSV and JSON versions are stored under `data/static/usgs/`
 
 ## Development guardrails
 
@@ -138,3 +130,9 @@ Data files may have separate source-specific reuse terms. Preserve `license_or_r
 - Treat PUB LOG as publicly releasable catalog data, not automatically open-source licensed data.
 - Keep raw source downloads out of git unless redistribution terms are verified.
 - Mark generated demonstration records as synthetic.
+
+## License
+
+This project uses the MIT License. See `LICENSE`.
+
+Data files may have separate source-specific reuse terms. Preserve `license_or_reuse_status` fields and source notes when importing or generating data.
