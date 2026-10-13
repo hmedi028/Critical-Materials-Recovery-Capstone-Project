@@ -6,7 +6,7 @@ Manual research across public catalogs, technical descriptions, and commodity re
 
 The system will not treat an AI-generated inference as a confirmed material composition unless it is supported by a traceable source.
 
-[![Version](https://img.shields.io/badge/version-0.3.0-blue)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-0.4.0-blue)](CHANGELOG.md)
 [![Python](https://img.shields.io/badge/Python-3.12+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![Pydantic](https://img.shields.io/badge/Pydantic-2.6+-E92063?logo=pydantic&logoColor=white)](https://docs.pydantic.dev/)
 
@@ -105,15 +105,22 @@ Writes `data/processed/selected_items_classified.csv` (codes plus readable title
 
 Priority 4 local run: 19 classified items; 8 groups. Thin-slice categories present: FSG 59 (FSC `5998` boards/cards, FSC `5960` electron tubes) and FSG 28 (FSC `2840` aircraft gas-turbine components). FSC `6140` is a Stage 1 candidate class and is not in this 19-item slice. Unmatched: INC `77777` on NIIN `000030837` is not in `V_H6_NAME_INC.CSV`; the item and FSC/FSG titles were kept.
 
+To validate the curated 9-item test dataset (`data/synthetic/test_cases.json`, documented in [`data/synthetic/README.md`](data/synthetic/README.md)) against the Pydantic contracts and USGS 2025 reference table:
+
+```bash
+python -m cmr.test_cases
+python -m unittest discover -s tests
+```
+
 ## Data organization
 
-- `data/README.md` — data-directory layout and the 12-entity Pydantic / JSON Schema mapping.
-- `docs/data-sources.md` — source plan, handling notes, and provenance fields.
-- `docs/glossary.md` — PUB LOG / FLIS acronym legend (FSC, FSG, NIIN, NSN, INC).
+- [`data/README.md`](data/README.md) — data-directory layout and the 12-entity Pydantic / JSON Schema mapping.
+- [`data/synthetic/README.md`](data/synthetic/README.md) — curated 9-item test dataset (`data/synthetic/test_cases.json`), scenarios, and source attribution.
+- [`docs/data-sources.md`](docs/data-sources.md) — source plan, handling notes, and provenance fields.
+- [`docs/glossary.md`](docs/glossary.md) — PUB LOG / FLIS acronym legend (FSC, FSG, NIIN, NSN, INC).
 - `data/static/usgs/critical_minerals_2025.csv` — committed USGS 2025 critical-minerals reference table.
 - `data/raw/` — local-only source downloads (for example `P_FLIS_NSN.CSV`). Gitignored.
 - `data/processed/` — local ingest outputs such as `candidate_niins.csv`. Gitignored.
-- `data/synthetic/` — reserved for generated demo records. No corpus is committed yet.
 - `data/schemas/` — JSON Schema contracts exported from the Pydantic models.
 
 ## USGS reference
