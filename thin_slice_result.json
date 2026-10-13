@@ -1,0 +1,49 @@
+{
+  "item": {
+    "public_item_id": "SYN-ITEM-002",
+    "name": "Demo lithium battery module",
+    "source_record_id": "SYN-ITEM-002",
+    "source_name": "CMR synthetic demonstration data",
+    "is_synthetic": true
+  },
+  "composition_evidence": [
+    {
+      "material_id": "lithium",
+      "quantity": "0.4",
+      "quantity_unit": "kg",
+      "evidence_source_id": "SYN-COMP-002-LI",
+      "evidence_source_name": "CMR synthetic demonstration data",
+      "evidence_quality": "confirmed",
+      "is_synthetic": true,
+      "usgs_match": true,
+      "usgs_material_name": "Lithium",
+      "usgs_publication": "USGS 2025 critical minerals list",
+      "usgs_publication_year": 2025,
+      "usgs_source_url": "https://www.usgs.gov/programs/mineral-resources-program/science/about-2025-list-critical-minerals",
+      "usgs_retrieved_date": "2026-09-13"
+    },
+    {
+      "material_id": "cobalt",
+      "quantity": "0.15",
+      "quantity_unit": "kg",
+      "evidence_source_id": "SYN-COMP-002-CO",
+      "evidence_source_name": "CMR synthetic demonstration data",
+      "evidence_quality": "confirmed",
+      "is_synthetic": true,
+      "usgs_match": true,
+      "usgs_material_name": "Cobalt",
+      "usgs_publication": "USGS 2025 critical minerals list",
+      "usgs_publication_year": 2025,
+      "usgs_source_url": "https://www.usgs.gov/programs/mineral-resources-program/science/about-2025-list-critical-minerals",
+      "usgs_retrieved_date": "2026-09-13"
+    }
+  ],
+  "recommendation": {
+    "recommendation_id": "DEMO-REC-002",
+    "item_id": "SYN-ITEM-002",
+    "category": "manual_review",
+    "explanation": "Synthetic composition evidence identifies lithium, cobalt in the USGS critical-minerals reference. Verify composition and assess recovery options before acting.",
+    "confidence": 0.8,
+    "human_review_required": true
+  }
+}
