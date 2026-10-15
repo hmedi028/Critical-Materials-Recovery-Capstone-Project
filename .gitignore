@@ -1,0 +1,23 @@
+# Local/raw data downloads and generated outputs
+/data/raw/*
+!/data/raw/README.md
+/data/processed/*
+!/data/processed/.gitkeep
+
+# Local environment/secrets
+.env
+.env.*
+!.env.example
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+# IDE and operating system files
+.idea/
+.DS_Store
+
+# Local validation and temporary outputs
+*.log

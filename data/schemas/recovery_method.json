@@ -1,0 +1,142 @@
+{
+  "$defs": {
+    "EvidenceQuality": {
+      "enum": [
+        "confirmed",
+        "inferred",
+        "incomplete",
+        "conflicting"
+      ],
+      "title": "EvidenceQuality",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Documented recovery process and expected yield for a material.",
+  "properties": {
+    "source_name": {
+      "minLength": 1,
+      "title": "Source Name",
+      "type": "string"
+    },
+    "source_url": {
+      "anyOf": [
+        {
+          "format": "uri",
+          "maxLength": 2083,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Source Url"
+    },
+    "source_record_id": {
+      "anyOf": [
+        {
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Source Record Id"
+    },
+    "retrieved_date": {
+      "anyOf": [
+        {
+          "format": "date",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Retrieved Date"
+    },
+    "generated_date": {
+      "anyOf": [
+        {
+          "format": "date",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Generated Date"
+    },
+    "license_or_reuse_status": {
+      "minLength": 1,
+      "title": "License Or Reuse Status",
+      "type": "string"
+    },
+    "evidence_quality": {
+      "$ref": "#/$defs/EvidenceQuality"
+    },
+    "is_synthetic": {
+      "title": "Is Synthetic",
+      "type": "boolean"
+    },
+    "recovery_method_id": {
+      "minLength": 1,
+      "title": "Recovery Method Id",
+      "type": "string"
+    },
+    "material_id": {
+      "minLength": 1,
+      "title": "Material Id",
+      "type": "string"
+    },
+    "process_name": {
+      "minLength": 1,
+      "title": "Process Name",
+      "type": "string"
+    },
+    "expected_yield": {
+      "anyOf": [
+        {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+          "type": "string"
+        }
+      ],
+      "title": "Expected Yield"
+    },
+    "handling_notes": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Handling Notes"
+    }
+  },
+  "required": [
+    "source_name",
+    "license_or_reuse_status",
+    "evidence_quality",
+    "is_synthetic",
+    "recovery_method_id",
+    "material_id",
+    "process_name",
+    "expected_yield"
+  ],
+  "title": "RecoveryMethod",
+  "type": "object"
+}

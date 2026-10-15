@@ -1,0 +1,57 @@
+{
+  "$defs": {
+    "RecommendationCategory": {
+      "enum": [
+        "retain",
+        "reclaim",
+        "recycle",
+        "manual_review",
+        "dispose"
+      ],
+      "title": "RecommendationCategory",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Classification outcome for a single item.",
+  "properties": {
+    "recommendation_id": {
+      "minLength": 1,
+      "title": "Recommendation Id",
+      "type": "string"
+    },
+    "item_id": {
+      "minLength": 1,
+      "title": "Item Id",
+      "type": "string"
+    },
+    "category": {
+      "$ref": "#/$defs/RecommendationCategory"
+    },
+    "explanation": {
+      "minLength": 1,
+      "title": "Explanation",
+      "type": "string"
+    },
+    "confidence": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Confidence",
+      "type": "number"
+    },
+    "human_review_required": {
+      "title": "Human Review Required",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "recommendation_id",
+    "item_id",
+    "category",
+    "explanation",
+    "confidence",
+    "human_review_required"
+  ],
+  "title": "Recommendation",
+  "type": "object"
+}

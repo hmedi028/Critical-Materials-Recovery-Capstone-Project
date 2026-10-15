@@ -1,0 +1,47 @@
+{
+  "additionalProperties": false,
+  "description": "Analysis audit record. Must not contain PII, credentials, or operational logs.",
+  "properties": {
+    "audit_id": {
+      "minLength": 1,
+      "title": "Audit Id",
+      "type": "string"
+    },
+    "analysis_id": {
+      "minLength": 1,
+      "title": "Analysis Id",
+      "type": "string"
+    },
+    "action": {
+      "minLength": 1,
+      "title": "Action",
+      "type": "string"
+    },
+    "rules_executed": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Rules Executed",
+      "type": "array"
+    },
+    "timestamp": {
+      "format": "date-time",
+      "title": "Timestamp",
+      "type": "string"
+    },
+    "result": {
+      "minLength": 1,
+      "title": "Result",
+      "type": "string"
+    }
+  },
+  "required": [
+    "audit_id",
+    "analysis_id",
+    "action",
+    "timestamp",
+    "result"
+  ],
+  "title": "AuditEvent",
+  "type": "object"
+}

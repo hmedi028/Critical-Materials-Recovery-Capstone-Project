@@ -1,0 +1,204 @@
+{
+  "$defs": {
+    "EvidenceQuality": {
+      "enum": [
+        "confirmed",
+        "inferred",
+        "incomplete",
+        "conflicting"
+      ],
+      "title": "EvidenceQuality",
+      "type": "string"
+    },
+    "EvidenceType": {
+      "enum": [
+        "specification",
+        "public_dataset",
+        "synthetic_bom",
+        "inferred"
+      ],
+      "title": "EvidenceType",
+      "type": "string"
+    },
+    "ValueBasis": {
+      "enum": [
+        "confirmed",
+        "inferred",
+        "synthetic"
+      ],
+      "title": "ValueBasis",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Material assertion for an item or component, with units and value basis.",
+  "properties": {
+    "source_name": {
+      "minLength": 1,
+      "title": "Source Name",
+      "type": "string"
+    },
+    "source_url": {
+      "anyOf": [
+        {
+          "format": "uri",
+          "maxLength": 2083,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Source Url"
+    },
+    "source_record_id": {
+      "anyOf": [
+        {
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Source Record Id"
+    },
+    "retrieved_date": {
+      "anyOf": [
+        {
+          "format": "date",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Retrieved Date"
+    },
+    "generated_date": {
+      "anyOf": [
+        {
+          "format": "date",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Generated Date"
+    },
+    "license_or_reuse_status": {
+      "minLength": 1,
+      "title": "License Or Reuse Status",
+      "type": "string"
+    },
+    "evidence_quality": {
+      "$ref": "#/$defs/EvidenceQuality"
+    },
+    "is_synthetic": {
+      "title": "Is Synthetic",
+      "type": "boolean"
+    },
+    "item_id": {
+      "anyOf": [
+        {
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Item Id"
+    },
+    "component_id": {
+      "anyOf": [
+        {
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Component Id"
+    },
+    "material_id": {
+      "minLength": 1,
+      "title": "Material Id",
+      "type": "string"
+    },
+    "quantity": {
+      "anyOf": [
+        {
+          "exclusiveMinimum": 0.0,
+          "type": "number"
+        },
+        {
+          "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Quantity"
+    },
+    "quantity_unit": {
+      "anyOf": [
+        {
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Quantity Unit"
+    },
+    "percentage": {
+      "anyOf": [
+        {
+          "maximum": 100.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Percentage"
+    },
+    "evidence_type": {
+      "$ref": "#/$defs/EvidenceType"
+    },
+    "value_basis": {
+      "$ref": "#/$defs/ValueBasis"
+    }
+  },
+  "required": [
+    "source_name",
+    "license_or_reuse_status",
+    "evidence_quality",
+    "is_synthetic",
+    "material_id",
+    "evidence_type",
+    "value_basis"
+  ],
+  "title": "CompositionEvidence",
+  "type": "object"
+}

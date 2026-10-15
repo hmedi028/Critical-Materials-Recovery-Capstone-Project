@@ -1,0 +1,169 @@
+{
+  "$defs": {
+    "EvidenceQuality": {
+      "enum": [
+        "confirmed",
+        "inferred",
+        "incomplete",
+        "conflicting"
+      ],
+      "title": "EvidenceQuality",
+      "type": "string"
+    },
+    "ItemCondition": {
+      "enum": [
+        "serviceable",
+        "unserviceable",
+        "damaged",
+        "unknown"
+      ],
+      "title": "ItemCondition",
+      "type": "string"
+    },
+    "LifecycleEventType": {
+      "enum": [
+        "receipt",
+        "inspection",
+        "storage",
+        "disposition"
+      ],
+      "title": "LifecycleEventType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Synthetic receipt, inspection, storage, or disposition event.",
+  "properties": {
+    "source_name": {
+      "minLength": 1,
+      "title": "Source Name",
+      "type": "string"
+    },
+    "source_url": {
+      "anyOf": [
+        {
+          "format": "uri",
+          "maxLength": 2083,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Source Url"
+    },
+    "source_record_id": {
+      "anyOf": [
+        {
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Source Record Id"
+    },
+    "retrieved_date": {
+      "anyOf": [
+        {
+          "format": "date",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Retrieved Date"
+    },
+    "generated_date": {
+      "anyOf": [
+        {
+          "format": "date",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Generated Date"
+    },
+    "license_or_reuse_status": {
+      "minLength": 1,
+      "title": "License Or Reuse Status",
+      "type": "string"
+    },
+    "evidence_quality": {
+      "$ref": "#/$defs/EvidenceQuality"
+    },
+    "is_synthetic": {
+      "title": "Is Synthetic",
+      "type": "boolean"
+    },
+    "event_id": {
+      "minLength": 1,
+      "title": "Event Id",
+      "type": "string"
+    },
+    "item_id": {
+      "minLength": 1,
+      "title": "Item Id",
+      "type": "string"
+    },
+    "event_type": {
+      "$ref": "#/$defs/LifecycleEventType"
+    },
+    "condition": {
+      "$ref": "#/$defs/ItemCondition"
+    },
+    "quantity": {
+      "anyOf": [
+        {
+          "exclusiveMinimum": 0.0,
+          "type": "number"
+        },
+        {
+          "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+          "type": "string"
+        }
+      ],
+      "title": "Quantity"
+    },
+    "quantity_unit": {
+      "minLength": 1,
+      "title": "Quantity Unit",
+      "type": "string"
+    },
+    "timestamp": {
+      "format": "date-time",
+      "title": "Timestamp",
+      "type": "string"
+    },
+    "generic_location_code": {
+      "minLength": 1,
+      "title": "Generic Location Code",
+      "type": "string"
+    }
+  },
+  "required": [
+    "source_name",
+    "license_or_reuse_status",
+    "evidence_quality",
+    "is_synthetic",
+    "event_id",
+    "item_id",
+    "event_type",
+    "condition",
+    "quantity",
+    "quantity_unit",
+    "timestamp",
+    "generic_location_code"
+  ],
+  "title": "LifecycleEvent",
+  "type": "object"
+}

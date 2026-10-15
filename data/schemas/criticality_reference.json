@@ -1,0 +1,145 @@
+{
+  "$defs": {
+    "EvidenceQuality": {
+      "enum": [
+        "confirmed",
+        "inferred",
+        "incomplete",
+        "conflicting"
+      ],
+      "title": "EvidenceQuality",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Versioned criticality assignment for a material.",
+  "properties": {
+    "source_name": {
+      "minLength": 1,
+      "title": "Source Name",
+      "type": "string"
+    },
+    "source_url": {
+      "anyOf": [
+        {
+          "format": "uri",
+          "maxLength": 2083,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Source Url"
+    },
+    "source_record_id": {
+      "anyOf": [
+        {
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Source Record Id"
+    },
+    "retrieved_date": {
+      "anyOf": [
+        {
+          "format": "date",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Retrieved Date"
+    },
+    "generated_date": {
+      "anyOf": [
+        {
+          "format": "date",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Generated Date"
+    },
+    "license_or_reuse_status": {
+      "minLength": 1,
+      "title": "License Or Reuse Status",
+      "type": "string"
+    },
+    "evidence_quality": {
+      "$ref": "#/$defs/EvidenceQuality"
+    },
+    "is_synthetic": {
+      "title": "Is Synthetic",
+      "type": "boolean"
+    },
+    "material_id": {
+      "minLength": 1,
+      "title": "Material Id",
+      "type": "string"
+    },
+    "criticality_category": {
+      "minLength": 1,
+      "title": "Criticality Category",
+      "type": "string"
+    },
+    "publication": {
+      "minLength": 1,
+      "title": "Publication",
+      "type": "string"
+    },
+    "publication_year": {
+      "title": "Publication Year",
+      "type": "integer"
+    },
+    "version": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Version"
+    },
+    "effective_date": {
+      "anyOf": [
+        {
+          "format": "date",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Effective Date"
+    }
+  },
+  "required": [
+    "source_name",
+    "license_or_reuse_status",
+    "evidence_quality",
+    "is_synthetic",
+    "material_id",
+    "criticality_category",
+    "publication",
+    "publication_year"
+  ],
+  "title": "CriticalityReference",
+  "type": "object"
+}
