@@ -132,7 +132,9 @@ The separate `data/processed/candidate_niins.csv` contains 5,613 rows and 5,613 
 
 The README documents a 1,000-candidate run producing 40 evidence rows and 19 selected NIINs. The current processed outputs contain 5,613 candidates, 4,169 evidence rows, and 1,625 selected NIINs.
 
-The current candidate list's original selection process has not been established. Matching the source records verifies data integrity, not the criteria used to select the 5,613 NIINs. The repository has no Git commits from which to recover that history.
+The candidate dataset's Git history identifies commit `ba04366319f116d285629aa6fd8b705a52267b14`, authored by `hmedi028` on September 27, 2026, with the message "Add candidate NIIN dataset from P_FLIS_NSN." The commit adds `data/processed/candidate_niins.csv` but does not document its generation settings. The parent version of `src/cmr/ingest_publog.py` used this filename by default, but its default limit was 1,000 distinct NIINs and its target FSCs were 5960, 5998, 6140, and 2840.
+
+The original selection process for the 5,613-row dataset therefore remains unresolved. The commit establishes when and by whom the file was added, not which limit, filters, or process generated it. Confirmation from the dataset author is needed before the intended Stage 1 scope can be considered verified.
 
 **Status: partially verified; selection provenance unresolved.**
 
