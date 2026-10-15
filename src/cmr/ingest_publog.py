@@ -112,6 +112,9 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
+    if args.limit < 1:
+        print("Error: --limit must be at least 1.")
+        return 2
     if not args.input.is_file():
         print(
             f"Input not found: {args.input}\n"
