@@ -11,5 +11,10 @@ dependencies = [
     "pydantic>=2",
 ]
 
+[project.optional-dependencies]
+demo = [
+    "streamlit>=1.38",
+]
+
 [tool.setuptools.packages.find]
 where = ["src"]

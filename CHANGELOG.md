@@ -19,10 +19,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-## [0.4.0] - 2026-10-13
+## [0.4.0] - 2026-10-15
 
 ### Added
 
+- Interactive Streamlit decision-support demonstration app (`src/cmr/demo_app.py`, runnable via `streamlit run src/cmr/demo_app.py`) with an item decision-support inspector, 9-item benchmark matrix and distribution charts, and an interactive `ReviewDecision` + `AuditEvent` human-review simulator; packaged under optional `demo` dependencies (`pip install -e ".[demo]"`).
 - Curated 9-item benchmark test dataset (`data/synthetic/test_cases.json`) combining all 7 distinct public DLA PUB LOG item profiles (`TC-01` through `TC-07`) with 2 synthetic seed items (`TC-08` NiMH battery with rare-earth lanthanum and `TC-09` non-metallic phenolic spacer negative control).
 - Test-case loader and contract validator (`src/cmr/test_cases.py`, runnable via `python -m cmr.test_cases`) verifying Pydantic v2 schemas (`Item`, `LifecycleEvent`, `CompositionEvidence`, `RecoveryMethod`, `ValueEstimate`, `Recommendation`), referential integrity, and USGS 2025 critical-mineral references.
 - Automated unit test suite (`tests/test_test_cases.py`, runnable via `python -m unittest discover -s tests`) asserting 5–10 test items, coverage across all five `RecommendationCategory` values (`retain`, `reclaim`, `recycle`, `manual_review`, `dispose`), and human-review routing edge cases (`NIIN 000030837` false-positive `"LG OF LEAD"` + unmatched `INC 77777`, and `NIIN 000032725` hazardous material indicator `HMIC=P`).

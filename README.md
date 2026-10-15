@@ -42,6 +42,8 @@ python3.12 -m venv .venv
 # If python3.12 is not installed, use: python3 -m venv .venv
 source .venv/bin/activate
 pip install -e .
+# Optional: install the Streamlit demo interface
+pip install -e ".[demo]"
 ```
 
 `.venv/` is gitignored and must not be committed.
@@ -110,6 +112,12 @@ To validate the curated 9-item test dataset (`data/synthetic/test_cases.json`, d
 ```bash
 python -m cmr.test_cases
 python -m unittest discover -s tests
+```
+
+To launch the interactive Streamlit decision-support demo (`src/cmr/demo_app.py`):
+
+```bash
+streamlit run src/cmr/demo_app.py
 ```
 
 ## Data organization
