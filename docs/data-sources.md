@@ -68,7 +68,7 @@ The 11 NIINs present in the evidence output but absent from the selected list ha
 
 ### Manual review and interpretation
 
-A deterministic sample of 15 material-specific evidence rows was reviewed. The sample included plausible matches in item descriptions, conductor material fields, and chemical-composition records. Some records mentioned trace constituents or impurity limits, so the presence of a matched word alone does not establish that a material is a primary component or is economically recoverable.
+A reproducible sample of 30 material-specific evidence rows was reviewed using pandas with random_state=616. Preliminary labels were 25 VALID, 3 AMBIGUOUS, and 2 FALSE POSITIVE. The sample included plausible matches in item descriptions, conductor material fields, and chemical-composition records. Some records mentioned trace constituents or impurity limits, so the presence of a matched word alone does not establish that a material is a primary component or is economically recoverable.
 
 - Treat material matches as **candidate evidence**, not proof that an item contains a recoverable critical material.
 - Preserve the source fields and matched term so reviewers can inspect the context.
