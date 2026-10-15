@@ -126,7 +126,9 @@ The current `data/processed/candidate_niins.csv` contains 5,613 rows and 5,613 u
 
 **Source-record integrity is verified:** all 5,613 candidate NIINs were found in `P_FLIS_NSN.CSV`, and all matched records have identical FSC and item-name values. None of the matched source records has a populated cancellation field.
 
-The current `src/cmr/ingest_publog.py` defaults to four FSCs (5960, 5998, 6140, and 2840), excludes cancelled NIINs, and limits output to 1,000 distinct NIINs. Its actual default output is `data/processed/candidate_niins.csv`. The CLI help text identifies the same output path.
+The current `src/cmr/ingest_publog.py` defaults to four FSCs (5960, 5998, 6140, and 2840), excludes cancelled NIINs, and limits output to 1,000 distinct NIINs. Its actual default output is `data/processed/candidate_niins_nsn.csv`. The CLI help text has been corrected to identify the same output path.
+
+The separate `data/processed/candidate_niins.csv` contains 5,613 rows and 5,613 unique NIINs across 283 FSC categories. Its source-record integrity is verified, but its original selection process and intended scope remain unresolved. Matching source records verifies data integrity, not the criteria used to select the candidates.
 
 The README documents a 1,000-candidate run producing 40 evidence rows and 19 selected NIINs. The current processed outputs contain 5,613 candidates, 4,169 evidence rows, and 1,625 selected NIINs.
 

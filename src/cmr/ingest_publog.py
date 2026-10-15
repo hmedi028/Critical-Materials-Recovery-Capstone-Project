@@ -99,7 +99,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         "--output",
         type=Path,
         default=DEFAULT_OUTPUT,
-        help="Output CSV path (default: data/processed/candidate_niins.csv)",
+        help="Output CSV path (default: data/processed/candidate_niins_nsn.csv)",
     )
     parser.add_argument(
         "--limit",
