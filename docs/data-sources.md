@@ -120,7 +120,7 @@ CRIT_CD, PMIC, DMIL, HMIC, and HCC are supporting indicators only;
 their values and the absence of a material keyword do not establish
 whether critical material is present or absent.
 
-### Stage 1 Candidate Provenance — Open Issue
+### Stage 1 Candidate Provenance — Scope Confirmed
 
 The current `data/processed/candidate_niins.csv` contains 5,613 rows and 5,613 unique NIINs across 283 FSC categories. Its recorded filesystem timestamp is 2026-10-11 22:03:06.
 
@@ -128,16 +128,16 @@ The current `data/processed/candidate_niins.csv` contains 5,613 rows and 5,613 u
 
 The current `src/cmr/ingest_publog.py` defaults to four FSCs (5960, 5998, 6140, and 2840), excludes cancelled NIINs, and limits output to 1,000 distinct NIINs. Its actual default output is `data/processed/candidate_niins_nsn.csv`. The CLI help text has been corrected to identify the same output path.
 
-The separate `data/processed/candidate_niins.csv` contains 5,613 rows and 5,613 unique NIINs across 283 FSC categories. Its source-record integrity is verified, but its original selection process and intended scope remain unresolved. Matching source records verifies data integrity, not the criteria used to select the candidates.
+The separate `data/processed/candidate_niins.csv` contains 5,613 rows and 5,613 unique NIINs across 283 FSC categories. Its source-record integrity is verified, but its original selection process and generation settings remain undocumented. Matching source records verifies data integrity, not the criteria used to select the candidates.
 
 The README documents a 1,000-candidate run producing 40 evidence rows and 19 selected NIINs. The current processed outputs contain 5,613 candidates, 4,169 evidence rows, and 1,625 selected NIINs.
 
 The candidate dataset's Git history identifies commit `ba04366319f116d285629aa6fd8b705a52267b14`, authored by `hmedi028` on September 27, 2026, with the message "Add candidate NIIN dataset from P_FLIS_NSN." The commit adds `data/processed/candidate_niins.csv` but does not document its generation settings. The parent version of `src/cmr/ingest_publog.py` used this filename by default, but its default limit was 1,000 distinct NIINs and its target FSCs were 5960, 5998, 6140, and 2840.
 
-The original selection process for the 5,613-row dataset therefore remains unresolved. The commit establishes when and by whom the file was added, not which limit, filters, or process generated it. Confirmation from the dataset author is needed before the intended Stage 1 scope can be considered verified.
+The original selection process for the 5,613-row dataset remains undocumented. The intended Stage 1 scope is confirmed as 1,000 distinct NIINs using FSCs 5960, 5998, 6140, and 2840, excluding canceled NIINs. A reproducible run using the current script and source file produced 1,000 distinct NIINs at `/tmp/candidate_niins_scope_check.csv`.
 
-**Status: partially verified; selection provenance unresolved.**
+A comparison of the reproducible 1,000-NIIN list with the existing 5,613-NIIN list found only one NIIN in common: 5,612 appeared only in the existing list, and 999 appeared only in the reproducible list. The two lists are substantially different, and the original generation settings for the existing dataset remain unknown.
 
-Do not replace the existing candidate list or downstream outputs until the intended Stage 1 scope is confirmed. For the next reproducible run, record the script version, input path, FSC filters, limit, output path, candidate count, and downstream counts. Preserve the existing outputs when testing an alternative scope.
+**Status:** Intended Stage 1 scope confirmed; the existing candidate dataset's original selection provenance remains unresolved.
 
-Card #616 must also retain the documented manual-review limitations and obtain teammate/reviewer and product-owner acceptance before being marked fully complete.
+Do not replace the existing candidate list or downstream outputs until a controlled regeneration and validation run is performed. Record the script version, input path, FSC filters, limit, output path, candidate count, and downstream counts for the new run. Preserve the existing outputs when testing the confirmed scope. The regenerated outputs must be validated before teammate verification and Product Owner acceptance.
