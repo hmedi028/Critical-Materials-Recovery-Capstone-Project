@@ -6,9 +6,9 @@ Manual research across public catalogs, technical descriptions, and commodity re
 
 The system will not treat an AI-generated inference as a confirmed material composition unless it is supported by a traceable source.
 
-[![Version](https://img.shields.io/badge/version-0.4.0-blue)](CHANGELOG.md)
-[![Python](https://img.shields.io/badge/Python-3.12+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
-[![Pydantic](https://img.shields.io/badge/Pydantic-2.6+-E92063?logo=pydantic&logoColor=white)](https://docs.pydantic.dev/)
+[Version](CHANGELOG.md)
+[Python](https://www.python.org/)
+[Pydantic](https://docs.pydantic.dev/)
 
 ## Table of contents
 
@@ -19,6 +19,8 @@ The system will not treat an AI-generated inference as a confirmed material comp
 - [USGS reference](#usgs-reference)
 - [Development guardrails](#development-guardrails)
 - [License](#license)
+
+
 
 ## What it will do
 
@@ -53,6 +55,8 @@ Copy `.env.example` to `.env` and add keys as integrations are added. Do not com
 ```bash
 cp .env.example .env
 ```
+
+
 
 ## Usage
 
@@ -89,11 +93,13 @@ Writes `data/processed/selected_items.csv` (includes 13-digit `NSN` = FSC + NIIN
 
 Recorded local run counts (processed CSVs stay gitignored):
 
-| Stage | Input | Output |
-| :--- | :--- | :--- |
-| 1 | `P_FLIS_NSN.CSV` | 1,000 candidate NIINs (`candidate_niins_nsn.csv`) |
-| 2 | 38,936,531 characteristics rows | 40 evidence rows; 19 selected NIINs |
-| 3 | selected NIINs vs `P_FLIS_NSN.CSV` and `V_FLIS_IDENTIFICATION.CSV` | 19 `selected_items.csv` rows; 19 `selected_identification.csv` rows |
+
+| Stage | Input                                                              | Output                                                              |
+| ----- | ------------------------------------------------------------------ | ------------------------------------------------------------------- |
+| 1     | `P_FLIS_NSN.CSV`                                                   | 1,000 candidate NIINs (`candidate_niins_nsn.csv`)                   |
+| 2     | 38,936,531 characteristics rows                                    | 40 evidence rows; 19 selected NIINs                                 |
+| 3     | selected NIINs vs `P_FLIS_NSN.CSV` and `V_FLIS_IDENTIFICATION.CSV` | 19 `selected_items.csv` rows; 19 `selected_identification.csv` rows |
+
 
 Join key across extracts is `NIIN`. Sample review: NIIN `000030837` matched `lead` on “LG OF LEAD” (electrical lead length), not the metal.
 
@@ -107,29 +113,45 @@ Writes `data/processed/selected_items_classified.csv` (codes plus readable title
 
 Priority 4 local run: 19 classified items; 8 groups. Thin-slice categories present: FSG 59 (FSC `5998` boards/cards, FSC `5960` electron tubes) and FSG 28 (FSC `2840` aircraft gas-turbine components). FSC `6140` is a Stage 1 candidate class and is not in this 19-item slice. Unmatched: INC `77777` on NIIN `000030837` is not in `V_H6_NAME_INC.CSV`; the item and FSC/FSG titles were kept.
 
-To validate the curated 9-item test dataset (`data/synthetic/test_cases.json`, documented in [`data/synthetic/README.md`](data/synthetic/README.md)) against the Pydantic contracts and USGS 2025 reference table:
+To validate the curated 9-item test dataset (`data/synthetic/test_cases.json`, documented in `[data/synthetic/README.md](data/synthetic/README.md)`) against the Pydantic contracts and USGS 2025 reference table:
 
 ```bash
 python -m cmr.test_cases
 python -m unittest discover -s tests
 ```
 
+To compute recommendations for the 9 benchmark cases with the deterministic engine (`src/cmr/recommend.py`):
+
+```bash
+python -m cmr.recommend
+```
+
+The engine evaluates item, lifecycle, composition, and USGS 2025 inputs only. It does not read `expected_recommendation`; that field remains the benchmark oracle.
+
 To launch the interactive Streamlit decision-support demo (`src/cmr/demo_app.py`):
+
+
+
+
 
 ```bash
 streamlit run src/cmr/demo_app.py
 ```
 
+
+
 ## Data organization
 
-- [`data/README.md`](data/README.md) — data-directory layout and the 12-entity Pydantic / JSON Schema mapping.
-- [`data/synthetic/README.md`](data/synthetic/README.md) — curated 9-item test dataset (`data/synthetic/test_cases.json`), scenarios, and source attribution.
-- [`docs/data-sources.md`](docs/data-sources.md) — source plan, handling notes, and provenance fields.
-- [`docs/glossary.md`](docs/glossary.md) — PUB LOG / FLIS acronym legend (FSC, FSG, NIIN, NSN, INC).
+- `[data/README.md](data/README.md)` — data-directory layout and the 12-entity Pydantic / JSON Schema mapping.
+- `[data/synthetic/README.md](data/synthetic/README.md)` — curated 9-item test dataset (`data/synthetic/test_cases.json`), scenarios, and source attribution.
+- `[docs/data-sources.md](docs/data-sources.md)` — source plan, handling notes, and provenance fields.
+- `[docs/glossary.md](docs/glossary.md)` — PUB LOG / FLIS acronym legend (FSC, FSG, NIIN, NSN, INC).
 - `data/static/usgs/critical_minerals_2025.csv` — committed USGS 2025 critical-minerals reference table.
 - `data/raw/` — local-only source downloads (for example `P_FLIS_NSN.CSV`). Gitignored.
 - `data/processed/` — local ingest outputs such as `candidate_niins.csv`. Gitignored.
 - `data/schemas/` — JSON Schema contracts exported from the Pydantic models.
+
+
 
 ## USGS reference
 
@@ -139,12 +161,16 @@ The initial committed static dataset is the USGS 2025 List of Critical Minerals,
 - 15 marked as rare earth elements in the USGS graphic/page context
 - CSV and JSON versions are stored under `data/static/usgs/`
 
+
+
 ## Development guardrails
 
 - Do not commit secrets, credentials, internal operational data, personal data, or restricted technical data.
 - Treat PUB LOG as publicly releasable catalog data, not automatically open-source licensed data.
 - Keep raw source downloads out of git unless redistribution terms are verified.
 - Mark generated demonstration records as synthetic.
+
+
 
 ## License
 

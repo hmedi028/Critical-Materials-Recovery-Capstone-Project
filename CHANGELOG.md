@@ -9,7 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Deterministic recommendation engine (`src/cmr/recommend.py`, runnable via `python -m cmr.recommend`) that computes a `Recommendation` and `AuditEvent` from `Item`, `LifecycleEvent`, `CompositionEvidence`, USGS 2025 materials, and optional `RecoveryMethod` / `ValueEstimate` using explicit precedence: uncertainty/safety gate → retain → reclaim → recycle → dispose.
+- Unit and oracle tests in `tests/test_recommend.py` covering each precedence step, no-crash handling of missing or unmatched inputs, and a 9-case match against `expected_recommendation` category and `human_review_required`.
+
 ### Changed
+
+- Streamlit demo (`src/cmr/demo_app.py`) now displays the **computed** recommendation and engine `AuditEvent.rules_executed`, and shows a computed-versus-expected oracle check. `expected_recommendation` is retained only as the benchmark answer key.
 
 ### Deprecated
 

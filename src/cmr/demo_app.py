@@ -10,12 +10,14 @@ import streamlit as st
 from cmr.models import (
     AuditEvent,
     Material,
+    Recommendation,
     RecommendationCategory,
     ReviewDecision,
     ReviewerRole,
     ReviewOutcome,
 )
 from cmr.models.material import load_usgs_critical_minerals
+from cmr.recommend import RecommendationResult, recommend_item
 from cmr.test_cases import (
     DEFAULT_TEST_CASES_PATH,
     DEFAULT_USGS_PATH,
@@ -24,6 +26,7 @@ from cmr.test_cases import (
     load_test_case_dataset,
 )
 
+# Category labels
 CATEGORY_LABELS: dict[RecommendationCategory, str] = {
     RecommendationCategory.RECLAIM: "RECLAIM",
     RecommendationCategory.MANUAL_REVIEW: "MANUAL REVIEW",
@@ -32,14 +35,14 @@ CATEGORY_LABELS: dict[RecommendationCategory, str] = {
     RecommendationCategory.DISPOSE: "DISPOSE",
 }
 
-
+# Get the loaded data
 @st.cache_data
 def get_loaded_data() -> tuple[TestCaseDataset, dict[str, Material]]:
     dataset = load_test_case_dataset(DEFAULT_TEST_CASES_PATH, DEFAULT_USGS_PATH)
     usgs_map = {m.material_id: m for m in load_usgs_critical_minerals(DEFAULT_USGS_PATH)}
     return dataset, usgs_map
 
-
+# Format the measured amount
 def format_measured_amount(quantity: Decimal | None, unit: str | None, percentage: Decimal | None) -> str:
     if quantity is not None and unit is not None:
         return f"{quantity} {unit}"
@@ -47,7 +50,7 @@ def format_measured_amount(quantity: Decimal | None, unit: str | None, percentag
         return f"{percentage}%"
     return "N/A"
 
-
+# Extract the MRC summary
 def extract_mrc_summary(chars: dict[str, str]) -> tuple[str, str]:
     mrc_keys = [k for k in chars if k.startswith("MRC_") or k == "SYNTHETIC_SPEC"]
     if not mrc_keys:
@@ -56,42 +59,38 @@ def extract_mrc_summary(chars: dict[str, str]) -> tuple[str, str]:
     values = " | ".join(f"{k}: {chars[k]}" for k in mrc_keys)
     return labels, values
 
-
-def derive_rules_executed(tc: TestCaseRecord, usgs_map: dict[str, Material]) -> list[str]:
-    rules: list[str] = ["RULE-01: Normalize Item & Provenance Contract"]
-    cond = tc.lifecycle_event.condition.value
-    rules.append(f"RULE-02: Evaluate Lifecycle Condition ({cond})")
-
-    if any(ev.material_id in usgs_map for ev in tc.composition_evidence):
-        matched = ", ".join(sorted({ev.material_id for ev in tc.composition_evidence if ev.material_id in usgs_map}))
-        rules.append(f"RULE-03: Match USGS 2025 Critical Minerals ({matched})")
-    else:
-        rules.append("RULE-03: No USGS 2025 Critical Minerals Matched")
-
-    chars = tc.item.public_characteristics
-    if chars.get("INC_STATUS") == "UNMATCHED_IN_V_H6_NAME_INC":
-        rules.append("RULE-04A: Flag Unmatched Catalog INC (77777 -> Human Review)")
-    if any(ev.evidence_quality.value in {"inferred", "incomplete", "conflicting"} for ev in tc.composition_evidence):
-        rules.append("RULE-04B: Non-Confirmed Composition Evidence -> Require Human Review")
-    if chars.get("HMIC") == "P":
-        rules.append("RULE-04C: Hazardous Material Indicator (HMIC=P) -> Require Specialist Review")
-
-    rules.append(
-        f"RULE-05: Emit Recommendation ({tc.expected_recommendation.category.value.upper()}, "
-        f"human_review_required={tc.expected_recommendation.human_review_required})"
+# Compute the recommendation
+def compute_recommendation(
+    tc: TestCaseRecord,
+    usgs_map: dict[str, Material],
+) -> RecommendationResult:
+    return recommend_item(
+        tc.item,
+        tc.lifecycle_event,
+        tc.composition_evidence,
+        usgs_map,
+        recovery_method=tc.recovery_method,
+        value_estimate=tc.value_estimate,
+        analysis_id=f"ANL-{tc.test_case_id}",
     )
-    return rules
 
-
+# Build the overview dataframe
 def build_overview_dataframe(
     cases: list[TestCaseRecord],
     usgs_map: dict[str, Material],
+    computed: dict[str, RecommendationResult],
 ) -> pd.DataFrame:
     rows: list[dict[str, Any]] = []
     for tc in cases:
         materials = [ev.material_id for ev in tc.composition_evidence]
         ree_present = any(
             usgs_map[m].is_rare_earth_element for m in materials if m in usgs_map
+        )
+        rec = computed[tc.test_case_id].recommendation
+        expected = tc.expected_recommendation
+        oracle_match = (
+            rec.category == expected.category
+            and rec.human_review_required == expected.human_review_required
         )
         rows.append(
             {
@@ -104,26 +103,45 @@ def build_overview_dataframe(
                 "Lot Qty": f"{tc.lifecycle_event.quantity} {tc.lifecycle_event.quantity_unit}",
                 "USGS 2025 Minerals": ", ".join(materials) if materials else "none (non-metallic)",
                 "REE": "Yes" if ree_present else "No",
-                "Expected Outcome": tc.expected_recommendation.category.value.upper(),
-                "Confidence": f"{tc.expected_recommendation.confidence:.0%}",
-                "Human Review": "REQUIRED" if tc.expected_recommendation.human_review_required else "No",
+                "Computed Outcome": rec.category.value.upper(),
+                "Expected Outcome": expected.category.value.upper(),
+                "Oracle": "MATCH" if oracle_match else "MISMATCH",
+                "Confidence": f"{rec.confidence:.0%}",
+                "Human Review": "REQUIRED" if rec.human_review_required else "No",
             }
         )
     return pd.DataFrame(rows)
 
+# Render the oracle check
+def render_oracle_check(computed: Recommendation, expected: Recommendation) -> None:
+    matched = (
+        computed.category == expected.category
+        and computed.human_review_required == expected.human_review_required
+    )
+    if matched:
+        st.success(
+            f"**Computed vs expected:** MATCH (`{computed.category.value}` / "
+            f"human_review={computed.human_review_required})"
+        )
+    else:
+        st.error(
+            f"**Computed vs expected:** MISMATCH — computed `{computed.category.value}` "
+            f"(review={computed.human_review_required}) vs expected `{expected.category.value}` "
+            f"(review={expected.human_review_required})"
+        )
 
-def render_recommendation_banner(tc: TestCaseRecord) -> None:
-    rec = tc.expected_recommendation
+# Render the recommendation banner
+def render_recommendation_banner(rec: Recommendation, scenario: str) -> None:
     cat_label = CATEGORY_LABELS[rec.category]
     review_badge = (
         "HUMAN REVIEW REQUIRED" if rec.human_review_required else "AUTO-VERIFIED (NO HUMAN REVIEW REQUIRED)"
     )
     header_text = (
-        f"**Recommendation: `{cat_label}`** &nbsp;|&nbsp; "
+        f"**Computed Recommendation: `{cat_label}`** &nbsp;|&nbsp; "
         f"**Confidence:** `{rec.confidence:.0%}` &nbsp;|&nbsp; "
         f"**Gate:** `{review_badge}`\n\n"
         f"{rec.explanation}\n\n"
-        f"*Scenario:* {tc.scenario}"
+        f"*Scenario:* {scenario}"
     )
     if rec.human_review_required:
         st.warning(header_text)
@@ -134,9 +152,15 @@ def render_recommendation_banner(tc: TestCaseRecord) -> None:
     else:
         st.info(header_text)
 
-
-def render_item_inspector(tc: TestCaseRecord, usgs_map: dict[str, Material]) -> None:
-    render_recommendation_banner(tc)
+# Inspect the item and lifecycle event
+def render_item_inspector(
+    tc: TestCaseRecord,
+    usgs_map: dict[str, Material],
+    result: RecommendationResult,
+) -> None:
+    rec = result.recommendation
+    render_recommendation_banner(rec, tc.scenario)
+    render_oracle_check(rec, tc.expected_recommendation)
 
     col_item, col_life = st.columns(2)
     chars = tc.item.public_characteristics
@@ -249,33 +273,25 @@ def render_item_inspector(tc: TestCaseRecord, usgs_map: dict[str, Material]) -> 
                     )
 
     with st.expander("View Executed Rules, Audit Trail & Raw Pydantic JSON"):
-        rules = derive_rules_executed(tc, usgs_map)
-        audit_event = AuditEvent(
-            audit_id=f"AUD-{tc.test_case_id}-001",
-            analysis_id=f"ANL-{tc.item.public_item_id}",
-            action="evaluate_item_disposition",
-            rules_executed=rules,
-            timestamp=datetime.now(timezone.utc),
-            result=(
-                f"category={tc.expected_recommendation.category.value}; "
-                f"human_review_required={tc.expected_recommendation.human_review_required}"
-            ),
-        )
         c1, c2 = st.columns(2)
         with c1:
-            st.markdown("**Generated `AuditEvent` (Pydantic validated)**")
-            st.json(audit_event.model_dump(mode="json"))
+            st.markdown("**Engine `AuditEvent` (`rules_executed` from `recommend_item`)**")
+            st.json(result.audit_event.model_dump(mode="json"))
         with c2:
             st.markdown("**Full `TestCaseRecord` Payload (Pydantic validated)**")
             st.json(tc.model_dump(mode="json"))
 
-
-def render_human_review_simulator(tc: TestCaseRecord, usgs_map: dict[str, Material]) -> None:
+# Render the human review simulator
+def render_human_review_simulator(
+    tc: TestCaseRecord,
+    result: RecommendationResult,
+) -> None:
+    rec = result.recommendation
     st.subheader(f"Interactive Human Review & Audit Simulator — {tc.test_case_id} ({tc.item.name})")
-    if tc.expected_recommendation.human_review_required:
+    if rec.human_review_required:
         st.warning(
             f"`{tc.test_case_id}` (`{tc.item.public_item_id}`) triggered a mandatory **Human Review Gate** "
-            f"(`human_review_required=True`). Reason: {tc.expected_recommendation.explanation}"
+            f"(`human_review_required=True`). Reason: {rec.explanation}"
         )
     else:
         st.info(
@@ -291,7 +307,7 @@ def render_human_review_simulator(tc: TestCaseRecord, usgs_map: dict[str, Materi
             "Hazardous Material Indicator HMIC=P (Copper Alloy 170/172 beryllium hazard) verified; "
             "route to certified beryllium-safe reclamation handler."
             if tc.test_case_id == "TC-03"
-            else f"Reviewed supporting evidence and approved {tc.expected_recommendation.category.value} disposition."
+            else f"Reviewed supporting evidence and approved {rec.category.value} disposition."
         )
     )
 
@@ -315,11 +331,11 @@ def render_human_review_simulator(tc: TestCaseRecord, usgs_map: dict[str, Materi
         )
         submitted = st.form_submit_button("Validate & Record ReviewDecision + AuditEvent")
 
-    if submitted or tc.expected_recommendation.human_review_required:
+    if submitted or rec.human_review_required:
         now = datetime.now(timezone.utc)
         review_record = ReviewDecision(
             review_id=f"REV-{tc.test_case_id}-001",
-            recommendation_id=tc.expected_recommendation.recommendation_id,
+            recommendation_id=rec.recommendation_id,
             reviewer_role=ReviewerRole(role_choice),
             decision=ReviewOutcome(outcome_choice),
             reason=reason_text.strip() or "Reviewed by human operator.",
@@ -327,9 +343,9 @@ def render_human_review_simulator(tc: TestCaseRecord, usgs_map: dict[str, Materi
         )
         audit_record = AuditEvent(
             audit_id=f"AUD-REV-{tc.test_case_id}-001",
-            analysis_id=f"ANL-{tc.item.public_item_id}",
+            analysis_id=result.audit_event.analysis_id,
             action=f"human_review_{review_record.decision.value}",
-            rules_executed=derive_rules_executed(tc, usgs_map)
+            rules_executed=list(result.audit_event.rules_executed)
             + [f"HUMAN-REVIEW: role={review_record.reviewer_role.value} decision={review_record.decision.value}"],
             timestamp=now,
             result=f"Review {review_record.review_id} recorded ({review_record.decision.value})",
@@ -344,23 +360,23 @@ def render_human_review_simulator(tc: TestCaseRecord, usgs_map: dict[str, Materi
             st.markdown("**Validated `AuditEvent` (`data/schemas/audit_event.json`)**")
             st.json(audit_record.model_dump(mode="json"))
 
-
 def main() -> None:
     st.set_page_config(
         page_title="CMR Decision-Support Prototype",
         layout="wide",
     )
-
+    # Load the dataset and USGS map
     dataset, usgs_map = get_loaded_data()
     all_cases = dataset.test_cases
-
-    st.title("Critical Materials Recovery — Decision-Support Prototype")
+    # Compute the recommendations
+    computed = {tc.test_case_id: compute_recommendation(tc, usgs_map) for tc in all_cases}
+    st.title("Critical Materials Recovery - Decision-Support Prototype")
     st.caption(
         "Explainable decision-support demonstration linking public DLA PUB LOG catalog items, "
         "synthetic operational states, and the USGS 2025 Critical Minerals List."
     )
 
-    # Top KPI & Pipeline Reduction Strip
+    # Render the top KPI and pipeline reduction strip
     k1, k2, k3, k4, k5 = st.columns(5)
     k1.metric("PUB LOG Scan", "38.9M rows", "Stage 2 V_CHARACTERISTICS")
     k2.metric("Classified Slice", "19 NIINs", "Stages 1–3 + Priority 4")
@@ -368,10 +384,10 @@ def main() -> None:
     k4.metric("USGS 2025 Minerals", "11 matched", "60 total in static table")
     k5.metric("Human-Review Gates", "2 items", "TC-02 & TC-03")
 
-    # Sidebar Filters & Selector
+    # Sidebar filters and selector
     st.sidebar.header("Benchmark Controls")
     category_filter = st.sidebar.selectbox(
-        "Filter by Expected Recommendation",
+        "Filter by Computed Recommendation",
         options=["All"] + [c.value for c in RecommendationCategory],
         index=0,
     )
@@ -383,15 +399,17 @@ def main() -> None:
     only_review = st.sidebar.checkbox("Only items requiring Human Review", value=False)
     search_query = st.sidebar.text_input("Search by NSN, NIIN, Name, or Material", value="").strip().lower()
 
+    # Filter the cases
     filtered_cases: list[TestCaseRecord] = []
     for tc in all_cases:
-        if category_filter != "All" and tc.expected_recommendation.category.value != category_filter:
+        rec = computed[tc.test_case_id].recommendation
+        if category_filter != "All" and rec.category.value != category_filter:
             continue
         if origin_filter == "Public PUB LOG" and tc.item.is_synthetic:
             continue
         if origin_filter == "Synthetic (CC0)" and not tc.item.is_synthetic:
             continue
-        if only_review and not tc.expected_recommendation.human_review_required:
+        if only_review and not rec.human_review_required:
             continue
         if search_query:
             haystack = " ".join(
@@ -411,7 +429,7 @@ def main() -> None:
     active_pool = filtered_cases if filtered_cases else all_cases
     case_options = {
         f"{tc.test_case_id} | {tc.item.public_item_id} — {tc.item.name} "
-        f"[{tc.expected_recommendation.category.value.upper()}]": tc
+        f"[{computed[tc.test_case_id].recommendation.category.value.upper()}]": tc
         for tc in active_pool
     }
 
@@ -420,6 +438,7 @@ def main() -> None:
         options=list(case_options.keys()),
     )
     selected_case = case_options[selected_label]
+    selected_result = computed[selected_case.test_case_id]
 
     st.sidebar.divider()
     st.sidebar.caption(
@@ -438,20 +457,20 @@ def main() -> None:
     )
 
     with tab_inspector:
-        render_item_inspector(selected_case, usgs_map)
+        render_item_inspector(selected_case, usgs_map, selected_result)
 
     with tab_overview:
         st.subheader("Curated 9-Item Benchmark Test Matrix")
         if not filtered_cases:
             st.warning("No test cases match the current sidebar filters; showing all 9 benchmark items.")
-        overview_df = build_overview_dataframe(active_pool, usgs_map)
+        overview_df = build_overview_dataframe(active_pool, usgs_map, computed)
         st.dataframe(overview_df, hide_index=True, use_container_width=True)
 
         c_chart1, c_chart2 = st.columns(2)
         with c_chart1:
-            st.markdown("#### Test Cases by Recommendation Category")
+            st.markdown("#### Test Cases by Computed Recommendation Category")
             cat_counts = (
-                pd.Series([tc.expected_recommendation.category.value for tc in all_cases])
+                pd.Series([computed[tc.test_case_id].recommendation.category.value for tc in all_cases])
                 .value_counts()
                 .rename_axis("Recommendation Category")
                 .reset_index(name="Test Case Count")
@@ -468,8 +487,8 @@ def main() -> None:
             st.bar_chart(mat_counts, x="USGS 2025 Critical Mineral", y="Assertion Count")
 
     with tab_review:
-        render_human_review_simulator(selected_case, usgs_map)
+        render_human_review_simulator(selected_case, selected_result)
 
-
+# Executes main on execution
 if __name__ == "__main__":
     main()
