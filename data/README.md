@@ -4,7 +4,7 @@
 - `raw/`: local source downloads; do not commit bulk/raw files unless their redistribution terms are confirmed.
 - `processed/`: local normalized outputs created by scripts (gitignored), including Stage 1–3 selected extracts and Priority 4 `selected_items_classified.csv` / `classification_groups.csv` / `classification_unmatched.csv`.
 - `synthetic/`: curated test dataset (`test_cases.json` and [`synthetic/README.md`](synthetic/README.md)) with 9 public/synthetic benchmark test cases validated against the Pydantic models.
-- `schemas/`: JSON Schema contracts exported from `src/cmr` models.
+- `schemas/`: JSON Schema contracts exported from the 12 PDF entity models in `src/cmr/models/`.
 
 Start with `static/usgs/critical_minerals_2025.csv` as the criticality reference table for rule development.
 
@@ -13,6 +13,8 @@ After model changes, regenerate committed JSON Schema files from the repository 
 ```bash
 python -m cmr.export_schemas
 ```
+
+Presentation objects used by the Streamlit demo (`RecommendationReport`, `MaterialSummary`, `DashboardSummary` in `src/cmr/reporting.py`) compose these entities. They are not PDF entities and must not be added to `export_schemas` or `data/schemas/`.
 
 ## Entity and schema architecture
 

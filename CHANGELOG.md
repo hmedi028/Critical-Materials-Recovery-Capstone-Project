@@ -11,10 +11,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Deterministic recommendation engine (`src/cmr/recommend.py`, runnable via `python -m cmr.recommend`) that computes a `Recommendation` and `AuditEvent` from `Item`, `LifecycleEvent`, `CompositionEvidence`, USGS 2025 materials, and optional `RecoveryMethod` / `ValueEstimate` using explicit precedence: uncertainty/safety gate → retain → reclaim → recycle → dispose.
 - Unit and oracle tests in `tests/test_recommend.py` covering each precedence step, no-crash handling of missing or unmatched inputs, and a 9-case match against `expected_recommendation` category and `human_review_required`.
+- Presentation layer (`src/cmr/reporting.py`) that builds a `RecommendationReport` per benchmark case and a `DashboardSummary` of category, review, origin, and material-assertion counts, with tests in `tests/test_reporting.py`.
+- Streamlit JSON download of the dashboard summary and selected-case report (demo/presentation dump, not a domain schema). CSV and PDF/HTML controls are visible planned placeholders.
 
 ### Changed
 
 - Streamlit demo (`src/cmr/demo_app.py`) now displays the **computed** recommendation and engine `AuditEvent.rules_executed`, and shows a computed-versus-expected oracle check. `expected_recommendation` is retained only as the benchmark answer key.
+- Streamlit demo split into a chart-first **Summary** view and a selector-driven **Detailed Analytics** view that render `cmr.reporting` objects instead of hard-coded KPI strip values.
+- README, `data/README.md`, and `data/synthetic/README.md` now describe the implemented engine, reporting layer, and two-view demo instead of the earlier “what it will do” / knowledge-graph wording.
 
 ### Deprecated
 

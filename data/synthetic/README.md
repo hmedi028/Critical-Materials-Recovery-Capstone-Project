@@ -29,7 +29,7 @@ Each entry in `test_cases.json` bundles the linked Pydantic v2 models (`src/cmr/
 - `composition_evidence` (`list[CompositionEvidence]` — `data/schemas/composition_evidence.json`): Material assertions linking `item_id` to a `material_id` in `data/static/usgs/critical_minerals_2025.csv`, with measured `quantity`+`quantity_unit` or `percentage`, `evidence_type`, and `value_basis`.
 - `recovery_method` (`RecoveryMethod | null` — `data/schemas/recovery_method.json`): Optional documented recovery process and `expected_yield`.
 - `value_estimate` (`ValueEstimate | null` — `data/schemas/value_estimate.json`): Optional illustrative recovery value and cost estimate (`is_illustrative: true`).
-- `expected_recommendation` (`Recommendation` — `data/schemas/recommendation.json`): Expected benchmark output (`category`, `explanation`, `confidence`, `human_review_required`).
+- `expected_recommendation` (`Recommendation` — `data/schemas/recommendation.json`): Benchmark oracle (`category`, `explanation`, `confidence`, `human_review_required`). The recommendation engine does not read this field; tests compare computed results to it.
 
 ## Source documentation and provenance
 
@@ -43,12 +43,23 @@ Each entry in `test_cases.json` bundles the linked Pydantic v2 models (`src/cmr/
 3. **CMR Synthetic Operational & BOM Seed (`CC0-1.0`, generated `2026-10-13`):**
    - Supplies warehouse lifecycle conditions/quantities (`LifecycleEvent`), nominal alloy/component mass percentages (`CompositionEvidence` with `is_synthetic: true` and `value_basis: "synthetic"` or `"inferred"`), recovery processes (`RecoveryMethod`), illustrative value estimates (`ValueEstimate`), and synthetic seed items `TC-08` and `TC-09`.
 
+## How the test cases are used
+
+The 9 cases are the current prototype’s unit of analysis:
+
+- `python -m cmr.test_cases` validates Pydantic contracts, referential integrity, and USGS 2025 `material_id` references.
+- `python -m cmr.recommend` computes a `Recommendation` and `AuditEvent` for each case. Oracle match is printed as computed vs `expected_recommendation`.
+- `src/cmr/reporting.py` turns each engine result into a `RecommendationReport` and rolls the nine reports into a `DashboardSummary` (category counts including zeros, review load, PUB LOG vs synthetic origin, mineral assertion counts).
+- `streamlit run src/cmr/demo_app.py` renders those objects in **Summary** (charts and compact table) and **Detailed Analytics** (selected-case inspector, comparison matrix, human-review simulator), with JSON download of the presentation dump.
+
 ## Validating the test cases
 
 Run the test-case validator from the repository root:
 
 ```bash
 python -m cmr.test_cases
-# or run the unit test suite:
+python -m cmr.recommend
 python -m unittest discover -s tests
 ```
+
+The unit suite includes contract checks (`tests/test_test_cases.py`), engine precedence and 9-case oracle match (`tests/test_recommend.py`), and reporting aggregates (`tests/test_reporting.py`).

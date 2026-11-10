@@ -2,9 +2,9 @@
 
 Open-source decision-support prototype that helps identify cataloged surplus, obsolete, damaged, or unserviceable items that may contain critical, strategic, precious, or otherwise valuable materials.
 
-Manual research across public catalogs, technical descriptions, and commodity references is slow and inconsistent. This project organizes public and synthetic data in a knowledge graph, applies transparent classification rules, and presents recommendations for human review.
+Manual research across public catalogs, technical descriptions, and commodity references is slow and inconsistent. This prototype links public DLA PUB LOG catalog records and synthetic operational states to the USGS 2025 Critical Minerals List, applies explicit classification rules, and presents recommendations for human review.
 
-The system will not treat an AI-generated inference as a confirmed material composition unless it is supported by a traceable source.
+The system does not treat an AI-generated inference as a confirmed material composition unless it is supported by a traceable source.
 
 [Version](CHANGELOG.md)
 [Python](https://www.python.org/)
@@ -12,7 +12,7 @@ The system will not treat an AI-generated inference as a confirmed material comp
 
 ## Table of contents
 
-- [What it will do](#what-it-will-do)
+- [What it does](#what-it-does)
 - [Setup](#setup)
 - [Usage](#usage)
 - [Data organization](#data-organization)
@@ -20,18 +20,19 @@ The system will not treat an AI-generated inference as a confirmed material comp
 - [Development guardrails](#development-guardrails)
 - [License](#license)
 
+## What it does
 
+The current prototype runs on a curated 9-item benchmark (7 PUB LOG profiles and 2 synthetic seeds):
 
-## What it will do
+1. Ingest local PUB LOG extracts (Stages 1–3 and Priority 4 classification lookups) without committing bulk source files.
+2. Validate linked `Item`, `LifecycleEvent`, `CompositionEvidence`, and optional recovery/value records against the Pydantic contracts.
+3. Compare material assertions with the committed USGS 2025 critical-minerals table.
+4. Compute `retain`, `reclaim`, `recycle`, `manual_review`, or `dispose` with a deterministic engine (`src/cmr/recommend.py`) and an `AuditEvent` rule trace.
+5. Assemble presentation objects (`src/cmr/reporting.py`) and show them in Streamlit: a chart-first **Summary** dashboard and one **Detailed Analytics** inspector for the selected case.
 
-1. Accept a public item identifier or item description.
-2. Retrieve matching public catalog information (PUB LOG or another approved source).
-3. Connect the item to known or inferred material information.
-4. Compare those materials with a versioned critical-minerals reference (for example, the USGS list).
-5. Recommend retain, reclaim, recycle, manual review, or ordinary disposal.
-6. Show the evidence, rules, uncertainty, and source provenance behind the recommendation.
+Human review is required when composition is inferred, evidence is incomplete, sources conflict, or a potentially hazardous material is identified. `expected_recommendation` on each test case is the benchmark oracle; the engine does not read it.
 
-Human review is required when composition is inferred, evidence is incomplete, sources conflict, or a potentially hazardous material is identified.
+Not in this prototype yet: live lookup of an arbitrary public item ID against full PUB LOG, a knowledge graph, loading gitignored `data/processed/*.csv` into the demo, or CSV/PDF/HTML export (those controls are visible placeholders).
 
 ## Setup
 
@@ -128,28 +129,33 @@ python -m cmr.recommend
 
 The engine evaluates item, lifecycle, composition, and USGS 2025 inputs only. It does not read `expected_recommendation`; that field remains the benchmark oracle.
 
+Presentation objects for the demo live in `src/cmr/reporting.py` (`RecommendationReport` per item, `DashboardSummary` for fleet totals). They compose the existing domain models and are not a 13th PDF entity; `python -m cmr.export_schemas` still writes only the 12 contracts under `data/schemas/`.
+
 To launch the interactive Streamlit decision-support demo (`src/cmr/demo_app.py`):
-
-
-
-
 
 ```bash
 streamlit run src/cmr/demo_app.py
 ```
 
+The demo has two views:
+
+- **Summary** — chart-first dashboard from `DashboardSummary` (all five recommendation categories including zeros, review load, PUB LOG vs synthetic origin, USGS mineral assertion counts) plus a compact item table.
+- **Detailed Analytics** — one inspector for the selected benchmark case, a comparison matrix, and the human-review simulator.
+
+Dashboard numbers come from `cmr.reporting`, not hard-coded ingest funnel counts. JSON download of the dashboard summary or selected-case report is a demo/presentation dump. Matrix CSV and PDF/HTML export are visible placeholders and are not implemented yet.
+
 
 
 ## Data organization
 
-- `[data/README.md](data/README.md)` — data-directory layout and the 12-entity Pydantic / JSON Schema mapping.
+- `[data/README.md](data/README.md)` — data-directory layout and the 12-entity Pydantic / JSON Schema mapping. Presentation DTOs in `src/cmr/reporting.py` are not a 13th exported schema.
 - `[data/synthetic/README.md](data/synthetic/README.md)` — curated 9-item test dataset (`data/synthetic/test_cases.json`), scenarios, and source attribution.
 - `[docs/data-sources.md](docs/data-sources.md)` — source plan, handling notes, and provenance fields.
 - `[docs/glossary.md](docs/glossary.md)` — PUB LOG / FLIS acronym legend (FSC, FSG, NIIN, NSN, INC).
 - `data/static/usgs/critical_minerals_2025.csv` — committed USGS 2025 critical-minerals reference table.
 - `data/raw/` — local-only source downloads (for example `P_FLIS_NSN.CSV`). Gitignored.
 - `data/processed/` — local ingest outputs such as `candidate_niins.csv`. Gitignored.
-- `data/schemas/` — JSON Schema contracts exported from the Pydantic models.
+- `data/schemas/` — JSON Schema contracts exported from the 12 PDF entity models.
 
 
 
@@ -169,6 +175,7 @@ The initial committed static dataset is the USGS 2025 List of Critical Minerals,
 - Treat PUB LOG as publicly releasable catalog data, not automatically open-source licensed data.
 - Keep raw source downloads out of git unless redistribution terms are verified.
 - Mark generated demonstration records as synthetic.
+- Do not register `RecommendationReport` or `DashboardSummary` with `python -m cmr.export_schemas`; JSON downloads from the demo are presentation dumps, not domain contracts.
 
 
 
