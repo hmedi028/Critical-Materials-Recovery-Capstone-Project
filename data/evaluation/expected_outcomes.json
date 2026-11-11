@@ -1,0 +1,1063 @@
+[
+  {
+    "item_id": "SYN-ITEM-001",
+    "expected_category": "retain",
+    "condition": "serviceable",
+    "materials_identified": [
+      "aluminum"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Item is serviceable and has no demonstrated recovery priority.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-002",
+    "expected_category": "reclaim",
+    "condition": "unserviceable",
+    "materials_identified": [
+      "cobalt",
+      "lithium"
+    ],
+    "composition_evidence_count": 2,
+    "rationale": "Unserviceable item contains a material identified for recovery.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-003",
+    "expected_category": "recycle",
+    "condition": "damaged",
+    "materials_identified": [
+      "copper"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Damaged item contains identified recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-004",
+    "expected_category": "manual_review",
+    "condition": "unknown",
+    "materials_identified": [
+      "tantalum"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Condition is unknown or composition evidence is uncertain.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-005",
+    "expected_category": "dispose",
+    "condition": "damaged",
+    "materials_identified": [],
+    "composition_evidence_count": 0,
+    "rationale": "Damaged item has no identified recovery-priority or recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-006",
+    "expected_category": "reclaim",
+    "condition": "unserviceable",
+    "materials_identified": [
+      "neodymium"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Unserviceable item contains a material identified for recovery.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-007",
+    "expected_category": "manual_review",
+    "condition": "unknown",
+    "materials_identified": [
+      "nickel"
+    ],
+    "composition_evidence_count": 2,
+    "rationale": "Condition is unknown or composition evidence is uncertain.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-008",
+    "expected_category": "retain",
+    "condition": "serviceable",
+    "materials_identified": [
+      "aluminum"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Item is serviceable and has no demonstrated recovery priority.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-009",
+    "expected_category": "retain",
+    "condition": "serviceable",
+    "materials_identified": [
+      "aluminum"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Item is serviceable and has no demonstrated recovery priority.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-010",
+    "expected_category": "retain",
+    "condition": "serviceable",
+    "materials_identified": [
+      "aluminum"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Item is serviceable and has no demonstrated recovery priority.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-011",
+    "expected_category": "retain",
+    "condition": "serviceable",
+    "materials_identified": [
+      "aluminum"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Item is serviceable and has no demonstrated recovery priority.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-012",
+    "expected_category": "retain",
+    "condition": "serviceable",
+    "materials_identified": [
+      "aluminum"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Item is serviceable and has no demonstrated recovery priority.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-013",
+    "expected_category": "retain",
+    "condition": "serviceable",
+    "materials_identified": [
+      "aluminum"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Item is serviceable and has no demonstrated recovery priority.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-014",
+    "expected_category": "retain",
+    "condition": "serviceable",
+    "materials_identified": [
+      "aluminum"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Item is serviceable and has no demonstrated recovery priority.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-015",
+    "expected_category": "retain",
+    "condition": "serviceable",
+    "materials_identified": [
+      "aluminum"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Item is serviceable and has no demonstrated recovery priority.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-016",
+    "expected_category": "retain",
+    "condition": "serviceable",
+    "materials_identified": [
+      "aluminum"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Item is serviceable and has no demonstrated recovery priority.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-017",
+    "expected_category": "retain",
+    "condition": "serviceable",
+    "materials_identified": [
+      "aluminum"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Item is serviceable and has no demonstrated recovery priority.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-018",
+    "expected_category": "retain",
+    "condition": "serviceable",
+    "materials_identified": [
+      "aluminum"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Item is serviceable and has no demonstrated recovery priority.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-019",
+    "expected_category": "retain",
+    "condition": "serviceable",
+    "materials_identified": [
+      "aluminum"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Item is serviceable and has no demonstrated recovery priority.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-020",
+    "expected_category": "retain",
+    "condition": "serviceable",
+    "materials_identified": [
+      "aluminum"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Item is serviceable and has no demonstrated recovery priority.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-021",
+    "expected_category": "retain",
+    "condition": "serviceable",
+    "materials_identified": [
+      "aluminum"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Item is serviceable and has no demonstrated recovery priority.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-022",
+    "expected_category": "retain",
+    "condition": "serviceable",
+    "materials_identified": [
+      "aluminum"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Item is serviceable and has no demonstrated recovery priority.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-023",
+    "expected_category": "retain",
+    "condition": "serviceable",
+    "materials_identified": [
+      "aluminum"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Item is serviceable and has no demonstrated recovery priority.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-024",
+    "expected_category": "retain",
+    "condition": "serviceable",
+    "materials_identified": [
+      "aluminum"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Item is serviceable and has no demonstrated recovery priority.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-025",
+    "expected_category": "retain",
+    "condition": "serviceable",
+    "materials_identified": [
+      "aluminum"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Item is serviceable and has no demonstrated recovery priority.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-026",
+    "expected_category": "retain",
+    "condition": "serviceable",
+    "materials_identified": [
+      "aluminum"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Item is serviceable and has no demonstrated recovery priority.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-027",
+    "expected_category": "reclaim",
+    "condition": "unserviceable",
+    "materials_identified": [
+      "lithium"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Unserviceable item contains a material identified for recovery.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-028",
+    "expected_category": "reclaim",
+    "condition": "unserviceable",
+    "materials_identified": [
+      "cobalt"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Unserviceable item contains a material identified for recovery.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-029",
+    "expected_category": "reclaim",
+    "condition": "unserviceable",
+    "materials_identified": [
+      "neodymium"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Unserviceable item contains a material identified for recovery.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-030",
+    "expected_category": "reclaim",
+    "condition": "unserviceable",
+    "materials_identified": [
+      "nickel"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Unserviceable item contains a material identified for recovery.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-031",
+    "expected_category": "reclaim",
+    "condition": "unserviceable",
+    "materials_identified": [
+      "dysprosium"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Unserviceable item contains a material identified for recovery.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-032",
+    "expected_category": "reclaim",
+    "condition": "unserviceable",
+    "materials_identified": [
+      "terbium"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Unserviceable item contains a material identified for recovery.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-033",
+    "expected_category": "reclaim",
+    "condition": "unserviceable",
+    "materials_identified": [
+      "praseodymium"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Unserviceable item contains a material identified for recovery.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-034",
+    "expected_category": "reclaim",
+    "condition": "unserviceable",
+    "materials_identified": [
+      "samarium"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Unserviceable item contains a material identified for recovery.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-035",
+    "expected_category": "reclaim",
+    "condition": "unserviceable",
+    "materials_identified": [
+      "yttrium"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Unserviceable item contains a material identified for recovery.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-036",
+    "expected_category": "reclaim",
+    "condition": "unserviceable",
+    "materials_identified": [
+      "cerium"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Unserviceable item contains a material identified for recovery.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-037",
+    "expected_category": "reclaim",
+    "condition": "unserviceable",
+    "materials_identified": [
+      "lithium"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Unserviceable item contains a material identified for recovery.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-038",
+    "expected_category": "reclaim",
+    "condition": "unserviceable",
+    "materials_identified": [
+      "cobalt"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Unserviceable item contains a material identified for recovery.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-039",
+    "expected_category": "reclaim",
+    "condition": "unserviceable",
+    "materials_identified": [
+      "neodymium"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Unserviceable item contains a material identified for recovery.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-040",
+    "expected_category": "reclaim",
+    "condition": "unserviceable",
+    "materials_identified": [
+      "nickel"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Unserviceable item contains a material identified for recovery.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-041",
+    "expected_category": "reclaim",
+    "condition": "unserviceable",
+    "materials_identified": [
+      "dysprosium"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Unserviceable item contains a material identified for recovery.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-042",
+    "expected_category": "reclaim",
+    "condition": "unserviceable",
+    "materials_identified": [
+      "terbium"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Unserviceable item contains a material identified for recovery.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-043",
+    "expected_category": "reclaim",
+    "condition": "unserviceable",
+    "materials_identified": [
+      "praseodymium"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Unserviceable item contains a material identified for recovery.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-044",
+    "expected_category": "reclaim",
+    "condition": "unserviceable",
+    "materials_identified": [
+      "samarium"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Unserviceable item contains a material identified for recovery.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-045",
+    "expected_category": "recycle",
+    "condition": "damaged",
+    "materials_identified": [
+      "copper"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Damaged item contains identified recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-046",
+    "expected_category": "recycle",
+    "condition": "damaged",
+    "materials_identified": [
+      "aluminum"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Damaged item contains identified recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-047",
+    "expected_category": "recycle",
+    "condition": "damaged",
+    "materials_identified": [
+      "copper"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Damaged item contains identified recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-048",
+    "expected_category": "recycle",
+    "condition": "damaged",
+    "materials_identified": [
+      "aluminum"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Damaged item contains identified recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-049",
+    "expected_category": "recycle",
+    "condition": "damaged",
+    "materials_identified": [
+      "copper"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Damaged item contains identified recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-050",
+    "expected_category": "recycle",
+    "condition": "damaged",
+    "materials_identified": [
+      "aluminum"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Damaged item contains identified recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-051",
+    "expected_category": "recycle",
+    "condition": "damaged",
+    "materials_identified": [
+      "copper"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Damaged item contains identified recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-052",
+    "expected_category": "recycle",
+    "condition": "damaged",
+    "materials_identified": [
+      "aluminum"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Damaged item contains identified recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-053",
+    "expected_category": "recycle",
+    "condition": "damaged",
+    "materials_identified": [
+      "copper"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Damaged item contains identified recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-054",
+    "expected_category": "recycle",
+    "condition": "damaged",
+    "materials_identified": [
+      "aluminum"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Damaged item contains identified recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-055",
+    "expected_category": "recycle",
+    "condition": "damaged",
+    "materials_identified": [
+      "copper"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Damaged item contains identified recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-056",
+    "expected_category": "recycle",
+    "condition": "damaged",
+    "materials_identified": [
+      "aluminum"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Damaged item contains identified recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-057",
+    "expected_category": "recycle",
+    "condition": "damaged",
+    "materials_identified": [
+      "copper"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Damaged item contains identified recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-058",
+    "expected_category": "recycle",
+    "condition": "damaged",
+    "materials_identified": [
+      "aluminum"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Damaged item contains identified recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-059",
+    "expected_category": "recycle",
+    "condition": "damaged",
+    "materials_identified": [
+      "copper"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Damaged item contains identified recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-060",
+    "expected_category": "recycle",
+    "condition": "damaged",
+    "materials_identified": [
+      "aluminum"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Damaged item contains identified recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-061",
+    "expected_category": "recycle",
+    "condition": "damaged",
+    "materials_identified": [
+      "copper"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Damaged item contains identified recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-062",
+    "expected_category": "recycle",
+    "condition": "damaged",
+    "materials_identified": [
+      "aluminum"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Damaged item contains identified recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-063",
+    "expected_category": "recycle",
+    "condition": "damaged",
+    "materials_identified": [
+      "copper"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Damaged item contains identified recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-064",
+    "expected_category": "dispose",
+    "condition": "damaged",
+    "materials_identified": [],
+    "composition_evidence_count": 0,
+    "rationale": "Damaged item has no identified recovery-priority or recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-065",
+    "expected_category": "dispose",
+    "condition": "damaged",
+    "materials_identified": [],
+    "composition_evidence_count": 0,
+    "rationale": "Damaged item has no identified recovery-priority or recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-066",
+    "expected_category": "dispose",
+    "condition": "damaged",
+    "materials_identified": [],
+    "composition_evidence_count": 0,
+    "rationale": "Damaged item has no identified recovery-priority or recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-067",
+    "expected_category": "dispose",
+    "condition": "damaged",
+    "materials_identified": [],
+    "composition_evidence_count": 0,
+    "rationale": "Damaged item has no identified recovery-priority or recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-068",
+    "expected_category": "dispose",
+    "condition": "damaged",
+    "materials_identified": [],
+    "composition_evidence_count": 0,
+    "rationale": "Damaged item has no identified recovery-priority or recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-069",
+    "expected_category": "dispose",
+    "condition": "damaged",
+    "materials_identified": [],
+    "composition_evidence_count": 0,
+    "rationale": "Damaged item has no identified recovery-priority or recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-070",
+    "expected_category": "dispose",
+    "condition": "damaged",
+    "materials_identified": [],
+    "composition_evidence_count": 0,
+    "rationale": "Damaged item has no identified recovery-priority or recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-071",
+    "expected_category": "dispose",
+    "condition": "damaged",
+    "materials_identified": [],
+    "composition_evidence_count": 0,
+    "rationale": "Damaged item has no identified recovery-priority or recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-072",
+    "expected_category": "dispose",
+    "condition": "damaged",
+    "materials_identified": [],
+    "composition_evidence_count": 0,
+    "rationale": "Damaged item has no identified recovery-priority or recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-073",
+    "expected_category": "dispose",
+    "condition": "damaged",
+    "materials_identified": [],
+    "composition_evidence_count": 0,
+    "rationale": "Damaged item has no identified recovery-priority or recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-074",
+    "expected_category": "dispose",
+    "condition": "damaged",
+    "materials_identified": [],
+    "composition_evidence_count": 0,
+    "rationale": "Damaged item has no identified recovery-priority or recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-075",
+    "expected_category": "dispose",
+    "condition": "damaged",
+    "materials_identified": [],
+    "composition_evidence_count": 0,
+    "rationale": "Damaged item has no identified recovery-priority or recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-076",
+    "expected_category": "dispose",
+    "condition": "damaged",
+    "materials_identified": [],
+    "composition_evidence_count": 0,
+    "rationale": "Damaged item has no identified recovery-priority or recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-077",
+    "expected_category": "dispose",
+    "condition": "damaged",
+    "materials_identified": [],
+    "composition_evidence_count": 0,
+    "rationale": "Damaged item has no identified recovery-priority or recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-078",
+    "expected_category": "dispose",
+    "condition": "damaged",
+    "materials_identified": [],
+    "composition_evidence_count": 0,
+    "rationale": "Damaged item has no identified recovery-priority or recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-079",
+    "expected_category": "dispose",
+    "condition": "damaged",
+    "materials_identified": [],
+    "composition_evidence_count": 0,
+    "rationale": "Damaged item has no identified recovery-priority or recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-080",
+    "expected_category": "dispose",
+    "condition": "damaged",
+    "materials_identified": [],
+    "composition_evidence_count": 0,
+    "rationale": "Damaged item has no identified recovery-priority or recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-081",
+    "expected_category": "dispose",
+    "condition": "damaged",
+    "materials_identified": [],
+    "composition_evidence_count": 0,
+    "rationale": "Damaged item has no identified recovery-priority or recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-082",
+    "expected_category": "dispose",
+    "condition": "damaged",
+    "materials_identified": [],
+    "composition_evidence_count": 0,
+    "rationale": "Damaged item has no identified recovery-priority or recyclable material.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-083",
+    "expected_category": "manual_review",
+    "condition": "unknown",
+    "materials_identified": [
+      "tantalum"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Condition is unknown or composition evidence is uncertain.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-084",
+    "expected_category": "manual_review",
+    "condition": "unknown",
+    "materials_identified": [
+      "tin"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Condition is unknown or composition evidence is uncertain.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-085",
+    "expected_category": "manual_review",
+    "condition": "unknown",
+    "materials_identified": [
+      "nickel"
+    ],
+    "composition_evidence_count": 2,
+    "rationale": "Condition is unknown or composition evidence is uncertain.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-086",
+    "expected_category": "manual_review",
+    "condition": "unknown",
+    "materials_identified": [
+      "tantalum"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Condition is unknown or composition evidence is uncertain.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-087",
+    "expected_category": "manual_review",
+    "condition": "unknown",
+    "materials_identified": [
+      "tin"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Condition is unknown or composition evidence is uncertain.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-088",
+    "expected_category": "manual_review",
+    "condition": "unknown",
+    "materials_identified": [
+      "nickel"
+    ],
+    "composition_evidence_count": 2,
+    "rationale": "Condition is unknown or composition evidence is uncertain.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-089",
+    "expected_category": "manual_review",
+    "condition": "unknown",
+    "materials_identified": [
+      "tantalum"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Condition is unknown or composition evidence is uncertain.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-090",
+    "expected_category": "manual_review",
+    "condition": "unknown",
+    "materials_identified": [
+      "tin"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Condition is unknown or composition evidence is uncertain.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-091",
+    "expected_category": "manual_review",
+    "condition": "unknown",
+    "materials_identified": [
+      "nickel"
+    ],
+    "composition_evidence_count": 2,
+    "rationale": "Condition is unknown or composition evidence is uncertain.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-092",
+    "expected_category": "manual_review",
+    "condition": "unknown",
+    "materials_identified": [
+      "tantalum"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Condition is unknown or composition evidence is uncertain.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-093",
+    "expected_category": "manual_review",
+    "condition": "unknown",
+    "materials_identified": [
+      "tin"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Condition is unknown or composition evidence is uncertain.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-094",
+    "expected_category": "manual_review",
+    "condition": "unknown",
+    "materials_identified": [
+      "nickel"
+    ],
+    "composition_evidence_count": 2,
+    "rationale": "Condition is unknown or composition evidence is uncertain.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-095",
+    "expected_category": "manual_review",
+    "condition": "unknown",
+    "materials_identified": [
+      "tantalum"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Condition is unknown or composition evidence is uncertain.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-096",
+    "expected_category": "manual_review",
+    "condition": "unknown",
+    "materials_identified": [
+      "tin"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Condition is unknown or composition evidence is uncertain.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-097",
+    "expected_category": "manual_review",
+    "condition": "unknown",
+    "materials_identified": [
+      "nickel"
+    ],
+    "composition_evidence_count": 2,
+    "rationale": "Condition is unknown or composition evidence is uncertain.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-098",
+    "expected_category": "manual_review",
+    "condition": "unknown",
+    "materials_identified": [
+      "tantalum"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Condition is unknown or composition evidence is uncertain.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-099",
+    "expected_category": "manual_review",
+    "condition": "unknown",
+    "materials_identified": [
+      "tin"
+    ],
+    "composition_evidence_count": 1,
+    "rationale": "Condition is unknown or composition evidence is uncertain.",
+    "is_synthetic": true
+  },
+  {
+    "item_id": "SYN-ITEM-100",
+    "expected_category": "manual_review",
+    "condition": "unknown",
+    "materials_identified": [
+      "nickel"
+    ],
+    "composition_evidence_count": 2,
+    "rationale": "Condition is unknown or composition evidence is uncertain.",
+    "is_synthetic": true
+  }
+]
