@@ -21,6 +21,12 @@ class ItemCondition(StrEnum):
     UNKNOWN = "unknown"
 
 
+# Used in:
+# - src/cmr/recommend.py (serviceable -> retain; unserviceable/damaged -> reclaim/recycle/dispose)
+# - src/cmr/reporting.py RecommendationReport and the Streamlit inspector
+# - data/synthetic/test_cases.json and lifecycle_events.json
+# - src/cmr/export_schemas.py -> data/schemas/lifecycle_event.json
+# This prototype requires is_synthetic=True
 class LifecycleEvent(Provenance):
     """Synthetic receipt, inspection, storage, or disposition event."""
 

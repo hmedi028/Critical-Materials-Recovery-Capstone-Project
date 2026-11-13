@@ -2,7 +2,10 @@ from datetime import datetime
 
 from pydantic import BaseModel, ConfigDict, Field
 
-
+# Used in: 
+# - src/cmr/recommend.py where an audit event is created for each recommendation
+# - src/cmr/export_schemas.py where data is capable of export in json format
+# - RecommendationReport -> displays the contents of the audit event object
 class AuditEvent(BaseModel):
     """Analysis audit record. Must not contain PII, credentials, or operational logs."""
 

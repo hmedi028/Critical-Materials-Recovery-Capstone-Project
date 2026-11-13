@@ -35,6 +35,9 @@ class TestCaseRecord(BaseModel):
     composition_evidence: list[CompositionEvidence] = Field(default_factory=list)
     recovery_method: RecoveryMethod | None = None
     value_estimate: ValueEstimate | None = None
+    # Benchmark oracle only. The previous Streamlit demo displayed this field as
+    # the live recommendation and built a fake AuditEvent from it. recommend_item()
+    # does not read it; the current demo compares computed vs expected.
     expected_recommendation: Recommendation
 
     @model_validator(mode="after")

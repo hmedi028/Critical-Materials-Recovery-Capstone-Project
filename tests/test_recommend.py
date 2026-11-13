@@ -212,6 +212,33 @@ class TestRecommendSafety(unittest.TestCase):
         self.assertEqual(result.recommendation.category, RecommendationCategory.MANUAL_REVIEW)
         self.assertTrue(result.recommendation.human_review_required)
 
+    def test_incomplete_evidence_is_manual_review(self) -> None:
+        item = _item()
+        result = recommend_item(
+            item,
+            _lifecycle(),
+            [_evidence(item.public_item_id, "copper", quality=EvidenceQuality.INCOMPLETE)],
+            _usgs("copper"),
+        )
+        self.assertEqual(result.recommendation.category, RecommendationCategory.MANUAL_REVIEW)
+        self.assertTrue(result.recommendation.human_review_required)
+        self.assertTrue(result.recommendation.explanation.startswith(RULE_UNCERTAINTY))
+        self.assertTrue(any(RULE_UNCERTAINTY in rule for rule in result.audit_event.rules_executed))
+
+    def test_hmic_p_is_manual_review(self) -> None:
+        item = _item(characteristics={"FSC": "5998", "HMIC": "P", "PMIC": "A", "CRIT_CD": "X"})
+        result = recommend_item(
+            item,
+            _lifecycle(),
+            [_evidence(item.public_item_id, "copper")],
+            _usgs("copper"),
+            recovery_method=_recovery("copper"),
+        )
+        self.assertEqual(result.recommendation.category, RecommendationCategory.MANUAL_REVIEW)
+        self.assertTrue(result.recommendation.human_review_required)
+        self.assertTrue(result.recommendation.explanation.startswith(RULE_UNCERTAINTY))
+        self.assertTrue("HMIC=P" in result.recommendation.explanation)
+
     def test_unmatched_inc_is_manual_review(self) -> None:
         item = _item(characteristics={"INC": "77777", "INC_STATUS": "UNMATCHED_IN_V_H6_NAME_INC", "HMIC": "N"})
         result = recommend_item(

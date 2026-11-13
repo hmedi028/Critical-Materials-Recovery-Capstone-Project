@@ -16,6 +16,11 @@ class ReviewOutcome(StrEnum):
     REVISE = "revise"
 
 
+# Used in:
+# - src/cmr/demo_app.py human-review simulator (accept / reject / revise with a required reason)
+# - src/cmr/generate_synthetic.py -> data/synthetic/review_decisions.json
+# - src/cmr/export_schemas.py -> data/schemas/review_decision.json
+# Review records are in-memory for the demo; they are not persisted
 class ReviewDecision(BaseModel):
     """Human review action for a recommendation. Uses a generic role, not a person."""
 

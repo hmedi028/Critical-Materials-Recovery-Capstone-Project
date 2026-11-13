@@ -1,3 +1,6 @@
+# Previous-demo / evaluation artifact. Labels the 100-item split corpus
+# (data/synthetic/items.json + composition_evidence.json), not the 9-case
+# Streamlit benchmark. Reclaim rules here differ from src/cmr/recommend.py.
 import json
 from pathlib import Path
 

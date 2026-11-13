@@ -14,6 +14,9 @@ USGS_LICENSE_OR_REUSE_STATUS = (
 )
 
 
+# Used in:
+# - Material.to_criticality_reference() when a versioned criticality record is needed
+# - src/cmr/export_schemas.py -> data/schemas/criticality_reference.json
 class CriticalityReference(Provenance):
     """Versioned criticality assignment for a material."""
 
@@ -32,6 +35,11 @@ class CriticalityReference(Provenance):
         return value
 
 
+# Used in:
+# - data/static/usgs/critical_minerals_2025.csv via load_usgs_critical_minerals()
+# - src/cmr/recommend.py as the USGS 2025 lookup map (including REE flags)
+# - src/cmr/reporting.py MaterialSummary / USGS match display
+# - src/cmr/export_schemas.py -> data/schemas/material.json
 class Material(Provenance):
     """Material identity aligned with the USGS 2025 critical-minerals table."""
 

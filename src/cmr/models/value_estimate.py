@@ -6,6 +6,11 @@ from pydantic import Field
 from cmr.models.provenance import Provenance
 
 
+# Used in:
+# - optional input to recommend_item() and display in the Streamlit inspector
+# - 9-case benchmark when an illustrative recovery margin is recorded
+# - src/cmr/export_schemas.py -> data/schemas/value_estimate.json
+# Illustrative only; not a live commodity price
 class ValueEstimate(Provenance):
     """Illustrative recovery value calculation. Not a live price quote."""
 

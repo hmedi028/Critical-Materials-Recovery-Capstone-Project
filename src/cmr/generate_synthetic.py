@@ -1,6 +1,12 @@
 """Generate the CC0 synthetic evaluation corpus through Pydantic models.
 
 Run: python -m cmr.generate_synthetic
+
+Previous-demo / evaluation artifact. Writes the 100-item split files under
+data/synthetic/ (items, components, composition_evidence, lifecycle_events,
+recommendations, review_decisions). The thin-slice CLI demo read those files
+via src/cmr/synthetic.py. The current Streamlit demo does not; it uses
+data/synthetic/test_cases.json.
 """
 
 from __future__ import annotations
