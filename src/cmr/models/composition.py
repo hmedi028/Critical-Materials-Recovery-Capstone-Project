@@ -19,6 +19,13 @@ class ValueBasis(StrEnum):
     SYNTHETIC = "synthetic"
 
 
+# Used in:
+# - src/cmr/recommend.py to match USGS materials and to trigger the uncertainty gate
+# - src/cmr/reporting.py MaterialSummary and the Detailed Analytics inspector
+# - data/synthetic/test_cases.json and the 100-item composition_evidence.json corpus
+# - src/cmr/export_schemas.py -> data/schemas/composition_evidence.json
+# Previous thin-slice demo matched SYN-ITEM-002 lithium/cobalt rows to USGS 2025
+# A USGS-list match here is an assertion, not confirmed composition
 class CompositionEvidence(Provenance):
     """Material assertion for an item or component, with units and value basis."""
 

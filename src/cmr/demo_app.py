@@ -1,3 +1,11 @@
+# Current Streamlit demo: computed Recommendation + AuditEvent via recommend.py,
+# presented through reporting.py (Summary vs Detailed Analytics).
+#
+# Previous version (v0.4.0) used:
+# - TestCaseRecord.expected_recommendation as the live on-screen recommendation
+# - derive_rules_executed() as a hardcoded audit trace
+# - a hardcoded ingest-funnel KPI strip (38.9M rows / 19 NIINs / 9 cases)
+# Those paths were replaced; test_cases.json and USGS 2025 remain the inputs.
 from __future__ import annotations
 
 from datetime import datetime, timezone
@@ -100,7 +108,7 @@ def build_overview_dataframe(reports: list[RecommendationReport]) -> pd.DataFram
                 "Origin": report.origin_label,
                 "Condition": lifecycle.condition.value,
                 "Lot Qty": f"{lifecycle.quantity} {lifecycle.quantity_unit}",
-                "USGS 2025 Minerals": (
+                "USGS 2025 Material Assertions": (
                     ", ".join(material.material_id for material in report.materials)
                     if report.materials
                     else "none (non-metallic)"
@@ -334,6 +342,11 @@ def render_item_inspector(report: RecommendationReport) -> None:
             for material in report.materials
         ]
         st.dataframe(pd.DataFrame(ev_rows), hide_index=True, use_container_width=True)
+        st.caption(
+            "A USGS 2025 list match is a material assertion, not confirmed composition. "
+            "The engine treats composition as confirmed only when `evidence_quality=confirmed` "
+            "and `value_basis` is not `inferred`."
+        )
     else:
         st.info(
             "No critical, strategic, or precious material assertions (`materials = []`). "
@@ -431,14 +444,17 @@ def render_human_review_simulator(report: RecommendationReport) -> None:
         )
         submitted = st.form_submit_button("Validate & Record ReviewDecision + AuditEvent")
 
-    if submitted or rec.human_review_required:
+    justification = reason_text.strip()
+    if submitted and not justification:
+        st.error("A review reason is required.")
+    elif justification and (submitted or rec.human_review_required):
         now = datetime.now(timezone.utc)
         review_record = ReviewDecision(
             review_id=f"REV-{report.test_case_id}-001",
             recommendation_id=rec.recommendation_id,
             reviewer_role=ReviewerRole(role_choice),
             decision=ReviewOutcome(outcome_choice),
-            reason=reason_text.strip() or "Reviewed by human operator.",
+            reason=justification,
             timestamp=now,
         )
         audit_record = AuditEvent(
@@ -630,12 +646,12 @@ def main() -> None:
         "synthetic operational states, and the USGS 2025 Critical Minerals List."
     )
 
-    view = st.radio(
+    view = st.segmented_control(
         "Dashboard view",
-        options=(VIEW_SUMMARY, VIEW_DETAILED),
-        horizontal=True,
-        index=0,
-    )
+        options=[VIEW_SUMMARY, VIEW_DETAILED],
+        default=VIEW_SUMMARY,
+        key="dashboard_view",
+    ) or VIEW_SUMMARY
 
     st.sidebar.caption(
         f"**Dataset ID:** `{dataset.dataset_id}`\n\n"

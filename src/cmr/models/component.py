@@ -2,7 +2,7 @@ from pydantic import Field
 
 from cmr.models.provenance import Provenance
 
-
+# Future-ready class for use when the NSN is not provided for the item
 class Component(Provenance):
     """Generic component belonging to a public catalog item."""
 

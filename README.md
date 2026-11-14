@@ -140,7 +140,11 @@ streamlit run src/cmr/demo_app.py
 The demo has two views:
 
 - **Summary** — chart-first dashboard from `DashboardSummary` (all five recommendation categories including zeros, review load, PUB LOG vs synthetic origin, USGS mineral assertion counts) plus a compact item table.
-- **Detailed Analytics** — one inspector for the selected benchmark case, a comparison matrix, and the human-review simulator.
+- **Detailed Analytics** — one inspector for the selected benchmark case, a comparison matrix of USGS 2025 **material assertions**, and the human-review simulator.
+
+The inspector shows item identity, material findings, evidence quality, value basis, and source provenance. Recommendation explanations and `AuditEvent.rules_executed` come from the same engine trace. A USGS-list match is an assertion, not confirmed composition; confirmation requires `evidence_quality=confirmed` and a non-inferred `value_basis`.
+
+The human-review simulator records `accept`, `reject`, or `revise` with a required reason and shows the resulting `ReviewDecision` and review `AuditEvent`. Review decisions are not persisted.
 
 Dashboard numbers come from `cmr.reporting`, not hard-coded ingest funnel counts. JSON download of the dashboard summary or selected-case report is a demo/presentation dump. Matrix CSV and PDF/HTML export are visible placeholders and are not implemented yet.
 

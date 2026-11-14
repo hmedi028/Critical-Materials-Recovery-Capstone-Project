@@ -11,6 +11,13 @@ class RecommendationCategory(StrEnum):
     DISPOSE = "dispose"
 
 
+# Used in:
+# - src/cmr/recommend.py which creates the computed recommendation for each item
+# - expected_recommendation on test cases (benchmark oracle only; the engine does not read it)
+# - src/cmr/reporting.py RecommendationReport and Streamlit Summary / Detailed Analytics
+# - src/cmr/export_schemas.py -> data/schemas/recommendation.json
+# Previous Streamlit demo displayed expected_recommendation as the live result
+# Previous thin-slice demo emitted a hardcoded Recommendation for SYN-ITEM-002
 class Recommendation(BaseModel):
     """Classification outcome for a single item."""
 

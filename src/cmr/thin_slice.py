@@ -1,3 +1,9 @@
+# Previous-demo artifact (CLI thin slice, before Streamlit + recommend.py).
+# Used in that version:
+# - data/synthetic/items.json and composition_evidence.json via load_seed_*()
+# - data/static/usgs/critical_minerals_2025.csv
+# - a hardcoded Recommendation (DEMO-REC-002), not recommend_item()
+# Writes thin_slice_result.json. Not used by src/cmr/demo_app.py.
 from pathlib import Path
 import json
 

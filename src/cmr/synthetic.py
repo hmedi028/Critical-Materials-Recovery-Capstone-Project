@@ -1,4 +1,16 @@
-"""Load committed synthetic demonstration records."""
+"""Load committed synthetic demonstration records.
+
+Previous-demo loaders for the 100-item split corpus under data/synthetic/:
+items.json, components.json, composition_evidence.json, lifecycle_events.json,
+recommendations.json, review_decisions.json.
+
+Used in:
+- src/cmr/thin_slice.py / src/cmr/models/thin_slice.py (SYN-ITEM-002 CLI demo)
+- src/cmr/generate_synthetic.py (writes those JSON files)
+- data/evaluation/build_expected_outcomes.py (reads items + composition)
+
+Not used by the current Streamlit demo, which loads data/synthetic/test_cases.json.
+"""
 
 from __future__ import annotations
 

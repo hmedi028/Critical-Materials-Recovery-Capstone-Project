@@ -1,4 +1,6 @@
-
+# Previous-demo artifact (print-only thin slice). Same SYN-ITEM-002 walk as
+# src/cmr/thin_slice.py, without writing thin_slice_result.json.
+# Not a Pydantic entity and not used by src/cmr/demo_app.py or export_schemas.py.
 from pathlib import Path
 
 from cmr.models.material import load_usgs_critical_minerals

@@ -11,6 +11,11 @@ class EvidenceQuality(StrEnum):
     CONFLICTING = "conflicting"
 
 
+# Used in:
+# - Inherited by Item, Component, Material, CompositionEvidence, LifecycleEvent,
+#   RecoveryMethod, ValueEstimate, and CriticalityReference
+# - src/cmr/export_schemas.py -> data/schemas/provenance.json
+# Required source metadata so imported or generated records stay traceable
 class Provenance(BaseModel):
     """Required source metadata for imported or generated records."""
 
