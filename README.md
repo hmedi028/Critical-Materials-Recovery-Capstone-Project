@@ -13,6 +13,7 @@ The system does not treat an AI-generated inference as a confirmed material comp
 ## Table of contents
 
 - [What it does](#what-it-does)
+- [Team and Contributions](#team-and-contributions)
 - [Setup](#setup)
 - [Usage](#usage)
 - [Data organization](#data-organization)
@@ -33,6 +34,14 @@ The current prototype runs on a curated 9-item benchmark (7 PUB LOG profiles and
 Human review is required when composition is inferred, evidence is incomplete, sources conflict, or a potentially hazardous material is identified. `expected_recommendation` on each test case is the benchmark oracle; the engine does not read it.
 
 Not in this prototype yet: live lookup of an arbitrary public item ID against full PUB LOG, a knowledge graph, loading gitignored `data/processed/*.csv` into the demo, or CSV/PDF/HTML export (those controls are visible placeholders).
+
+## Team and Contributions
+
+This is a collaborative FIU Capstone II project developed by Team A.
+
+Hayla Medina - Team Lead, PM
+Trevor Werner - Schema, Ingestion, and Decision-Support Lead
+Alexia Lucas - Decision Support, Data Validation, Testing and Evaluation Lead
 
 ## Setup
 
